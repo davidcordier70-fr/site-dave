@@ -1,22 +1,24 @@
 import { Injectable, resource } from '@angular/core';
 import { CategoryInterface, CategoryInterfaceForm } from '../interfaces';
 
+const BASE_URL = '/api/categorys';
+
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
 
-  BASE_URL='http://localhost:4200/api/categorys'
+  
 
   categoryResource=resource({
-    loader:async():Promise<CategoryInterface[]> => await (await fetch(`${this.BASE_URL}/`)).json()
+    loader:async():Promise<CategoryInterface[]> => await (await fetch(`${BASE_URL}/`)).json()
   })
 
   async addCategory(category:CategoryInterfaceForm) {
 
     try {
 
-    const response = await (fetch(`${this.BASE_URL}/`, {
+    const response = await (fetch(`${BASE_URL}/`, {
       method:'POST',
       body : JSON.stringify(category),
       headers: {
@@ -46,7 +48,7 @@ export class CategoryService {
   async deleteCategory(categoryId:string) {
     try {
 
-     const response = await fetch(`${this.BASE_URL}/${categoryId}`, {
+     const response = await fetch(`${BASE_URL}/${categoryId}`, {
       method:'DELETE',
      });
 

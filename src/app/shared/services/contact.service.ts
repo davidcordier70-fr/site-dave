@@ -1,15 +1,17 @@
 import { Injectable, resource } from '@angular/core';
 import { CategoryInterface, CategoryInterfaceForm, ContactInterface, ContactInterfaceForm } from '../interfaces';
 
+const BASE_URL='/api/messages'
+
 @Injectable({
   providedIn: 'root',
 })
 export class MessageService {
 
-  BASE_URL='http://localhost:4200/api/messages/'
+  
 
   async createMessage(message: ContactInterfaceForm): Promise<ContactInterface> {
-      const response = await fetch(this.BASE_URL, {
+      const response = await fetch(BASE_URL, {
         method: 'POST',
         body: JSON.stringify(message),
         headers: {

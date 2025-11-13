@@ -6,7 +6,7 @@ import { CategoryInterface, CategoryInterfaceForm, CompetenceInterface, Competen
 })
 export class CompetenceService {
 
-  BASE_URL='http://localhost:4200/api/competences'
+  BASE_URL='/api/competences'
 
   competenceResource=resource({
     loader:async():Promise<CompetenceInterface[]> => await (await fetch(`${this.BASE_URL}/`)).json()
