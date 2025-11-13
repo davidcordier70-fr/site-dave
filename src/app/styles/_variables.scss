@@ -1,0 +1,20 @@
+@use '@angular/material' as mat;
+
+:root {
+  --font-family: "Montserrat", sans-serif;
+  --text-color: #222;
+  --gray-100: #dfe6e9;
+  --gray-700: #2c3a47;
+  --light: #e9d5ff;
+  --secondary: #e9d5ff;
+  --primary: #7e22ce;
+  --dark: #3b0764;
+  --success: #22c55e;
+  --danger: #dc2626;
+  --border-radius:3px;
+
+  @include mat.divider-overrides((
+    width: 5px,
+  ));
+
+}

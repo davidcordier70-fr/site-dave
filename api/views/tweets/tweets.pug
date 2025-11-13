@@ -1,0 +1,12 @@
+extends ../layout.pug 
+
+block content 
+    script(src='javascript/tweets/tweets.js')
+    div(class='d-flex flex-row mx-auto content pt-4')
+        div(class='profile-container b') 
+            include ../includes/profile.pug
+        div(class='flex-fill ps-3 b1') 
+            h2(class='pt-3 pb-3') Liste des Tweets
+            div(class='d-flex flex-column flex-fill' id='tweets-list-container')
+                include ./tweet-list.pug 
+            

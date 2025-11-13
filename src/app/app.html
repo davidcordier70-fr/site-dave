@@ -1,0 +1,30 @@
+<div class="settings-container">
+  <h2>Paramètres utilisateur</h2>
+
+  <mat-slide-toggle
+    [checked]="settings().notifications"
+    (toggleChange)="toggleOption('notifications')"
+  >
+    Activer les notifications
+  </mat-slide-toggle>
+
+  <mat-slide-toggle
+    [checked]="settings().darkMode"
+    color="accent"
+    (toggleChange)="toggleOption('darkMode')"
+  >
+    Activer le mode sombre
+  </mat-slide-toggle>
+
+  <mat-slide-toggle
+    [checked]="settings().autoUpdates"
+    color="primary"
+    (toggleChange)="toggleOption('autoUpdates')"
+  >
+    Activer les mises à jour automatiques
+  </mat-slide-toggle>
+
+  <button mat-raised-button color="warn" (click)="resetSettings()">
+    Réinitialiser les paramètres
+  </button>
+</div>

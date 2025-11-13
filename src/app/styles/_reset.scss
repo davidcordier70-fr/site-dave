@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+ul li {
+  cursor:pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+.btn {
+  border-radius:10px;
+  font-weight:var(--font-weight);
+  border:2px solid var(--secondary);
+  padding:10px;
+  transition: background-color 0.4s;
+  font-family: var(--font-family);
+  cursor:pointer;
+
+
+}
+
+.btn-primary {
+  background-color:var(--mat-sys-tertiary);
+  color:white;
+  font-weight:bold;
+  
+
+}
+
+
+
+
+
+.btn-strocke {
+  background-color:white;
+  color:var(--primary);
+
+}
+
+.btn-danger {
+  background-color:red;
+  color:white;
+
+}
+
+a {
+  text-decoration: none;
+  font-weight:bold;
+  text-align:center;
+}
+
+.active-link {
+  background-color:var(--primary);
+  color:var(--secondary);
+  padding:10px;
+  border-radius: 16px;
+}
+
+.active-item {
+  background-color:var(--secondary);
+  color:var(--primary);
+  font-weight: bold;
+  border-radius: 10px;
+  padding:5px;
+  cursor:pointer;
+
+}
+
+
+.btn-primary {
+  
+  &:hover {
+    color:black;
+    background:white;
+    font-weight:400;
+    font-family: var(--font-family);
+    font-weight:bold;
+    & > i {
+      z-index:1;
+      color:black;
+    }
+  }
+  
+
+
+}
+
+.btn-strocke:hover {
+  background-color: var(--primary);
+  color:var(--secondary);
+  font-weight:400;
+  font-family: var(--font-family);
+
+
+}
+
+.btn-primary-like {
+  background-color: #8D28D8;
+  font-weight:var(--font-weight);
+  border:0;
+  padding:10px;
+  transition: background-color 0.4s;
+  color:white;
+  width:70px;
+
+
+}

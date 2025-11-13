@@ -1,0 +1,14 @@
+
+    :host {
+      display:flex;
+      flex:row;
+      align-items:center;
+      background-color:var(--primary);
+      height:100px;
+      color:white;
+      padding:20px;
+    }
+
+.content {
+  min-height: 100vh;
+}
