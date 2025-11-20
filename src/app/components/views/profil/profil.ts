@@ -1,0 +1,299 @@
+import { Component, computed, effect, inject } from '@angular/core';
+import { FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { signal } from '@angular/core';
+import { UserService } from './../../../shared/services/user.service';
+import { ContactInterfaceForm, ProfilForm, User, UserForm } from '../../../shared/interfaces';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MessageService } from '../../../shared/services/contact.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { toSignal } from '@angular/core/rxjs-interop'
+import { MatDialog } from '@angular/material/dialog';
+
+
+
+@Component({
+  selector: 'app-profil',
+  imports: [ReactiveFormsModule],
+  template: `
+    @if (show()) {
+        <div animate.enter="fade-in" animate.leave="fade-out" class="message-success">
+          Les données ont bien été sauvegardées
+        </div>
+      } 
+    <form [formGroup]="profilForm" (submit)="submit()" class="card" autocomplete="off">
+      
+      <h2 class="mb-10">Votre profil</h2>
+      
+      <div class="d-flex flex-column">
+        <div class="d-flex mb-20">
+          <div class="d-flex flex-column">
+            <label for="nom" class='mb-10'>Votre Nom</label>
+            <input formControlName="nom" type="text" id="nom" autocomplete="off" class='mb-10'/>
+              @if (nomControl.errors?.['required'] && (nomControl.touched || formSubmitted())) {
+                <span class="error">Nom d'utilisateur obligatoire</span>
+             } 
+          </div>
+          <div class="d-flex flex-column pl-20">
+            <label for="prenom" class='mb-10'>Votre prénom</label>
+            <input formControlName="prenom" type="text" id="prenom" autocomplete="off" class='mb-10'/>
+            @if (prenomControl.errors?.['required'] && (prenomControl.touched || formSubmitted())) {
+              <span class="error">Prénom d'utilisateur obligatoire</span>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column mb-20">
+        <label for="noment" class='mb-10'>Votre entreprise</label>
+        <div class="d-flex mb-10">
+          <input formControlName="noment" type="text" id="noment" autocomplete="off" class='flex-fill' />
+        </div>
+        <div class="d-flex flex-column">
+            @if (nomentControl.errors?.['required'] && (nomentControl.touched || formSubmitted())) {
+              <span class="error">Nom d'enreprise obligatoire</span>
+            } 
+        </div>
+      </div>
+      <div class="d-flex flex-column mb-20">
+        <label for="noment" class='mb-10'>Votre email</label>
+        <div class="d-flex mb-10">
+          <input formControlName="email" type="text" id="email" autocomplete="off" class='flex-fill' />
+        </div>
+        <div class="d-flex flex-column">
+            @if (emailControl.errors?.['required'] && (emailControl.touched || formSubmitted())) {
+              <span class="error">Email obligatoire</span>
+            } @else if (emailControl.errors?.['email'] && (emailControl.touched || formSubmitted())) {
+              <span class="error">Le format de l'email est invalide</span>
+            }
+        </div>
+      </div>
+      <div>
+        <button
+          [disabled]="profilForm.invalid"
+          class="btn btn-primary"
+        >
+          Sauvegarder
+        </button>
+      </div>
+    </form>
+    <form [formGroup]="secuForm" (submit)="submitSecu()" class="card pt-20" autocomplete="off">
+      <h2 class="mb-10">Sécurité</h2>
+           
+      <div class="d-flex flex-column">
+        <div class="d-flex mb-20">
+          <div class="d-flex flex-column">
+            <label for="passwd" class='mb-10'>Nouveau mot de passe *</label>
+            <input formControlName="passwd" type="password" id="passwd" autocomplete="off" class='mb-10'/>
+              @if (passwdControl.errors?.['required'] && (passwdControl.touched || formSubmitted())) {
+                <span class="error">Mot de passe obligatoire</span>
+             } 
+          </div>
+          <div class="d-flex flex-column pl-20">
+            <label for="confpasswd" class='mb-10'>Confirmation *</label>
+            <input formControlName="confpasswd" type="password" id="confpasswd" autocomplete="off" class='mb-10'/>
+            @if (confpasswdControl.errors?.['required'] && (confpasswdControl.touched || formSubmitted())) {
+              <span class="error">Mot de passe obligatoire</span>
+            } <!--@else if (passwdControl.value != confpasswdControl.value) {
+              <span class="error">Les deux mots de passe doivent être identiques</span>
+            } !-->
+
+            
+          </div>
+        </div>
+        <div>
+          <button
+            [disabled]="secuForm.invalid"
+            class="btn btn-primary"
+          >
+            Sauvegarder
+          </button>
+        </div>
+      </div>
+      </form>
+      
+      
+  `,
+  styles: `
+    :host {
+      background:linear-gradient(90deg, white 0%, var(--gray-100) 100%);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      flex:1;
+      
+      
+    }
+    .card {
+  
+      border-radius:10px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      background:white;
+      padding:20px;
+      
+
+
+    }
+    form label {
+      color:var(--gray-700);
+      font-weight:500;
+    }
+    form input {
+      background:rgb(248, 250, 252);
+      -moz-autofill-background:rgb(248, 250, 252);
+      border:1px solid rgb(226, 232, 240);
+      width:300px;
+      height:40px;
+    }
+    form h2 {
+      align-items:left;
+    }
+    .input2 {
+      width:100%;
+    }
+    .form-end button span {
+      color:white;
+      font-weight:500;
+    }
+    .btn-inscription {
+      border-radius:10px;
+      background:rgb(248, 250, 252);
+      padding:10px;
+      border:2px solid rgb(226, 232, 240);
+    }
+    .error {
+      color: red;
+      font-size: 0.875rem;
+    }
+
+    .fade-in {
+      animation: fadeIn 300ms ease-in forwards;
+    }
+
+    .fade-out {
+      animation: fadeOut 300ms ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+
+    .message-success {
+      background:var(--gray-700);
+      color:white;
+      padding:20px;
+      z-index:1;
+      position:absolute;
+      bottom:40px;
+      right:30px;
+    }
+  `
+
+})
+export class Profil {
+  readonly fb = inject(FormBuilder);
+  readonly userService = inject(UserService);
+  readonly authService = inject(AuthService);
+  private activatedRoute = inject(ActivatedRoute);
+  profilId = toSignal(this.activatedRoute.params)()!['id'];
+  show = signal(false);
+
+  notificationVisible = signal(false);
+
+  readonly dialog = inject(MatDialog);
+
+  currentUser = this.authService.currentUserResource.value();
+
+  profilForm = this.fb.group({
+    noment: [{value:''}],
+    nom: [{value:''}, [Validators.required, Validators.minLength(2)]],
+    prenom: [{value:''}, [Validators.required, Validators.minLength(2)]],
+    email: ['',  [Validators.required, Validators.email]]
+  });
+
+  secuForm = this.fb.group({
+    passwd: ['', [Validators.required, Validators.minLength(6)]],
+    confpasswd: ['', [Validators.required, Validators.minLength(6)]],
+  });
+
+  formSubmitted = signal(false);
+  readonly router = inject(Router);
+
+  get emailControl() {
+    return this.profilForm.get('email') as FormControl;
+  }
+
+  get nomControl() {
+    return this.profilForm.get('nom') as FormControl;
+  }
+
+  get nomentControl() {
+    return this.profilForm.get('noment') as FormControl;
+  }
+
+  get prenomControl() {
+    return this.profilForm.get('prenom') as FormControl;
+  }
+
+  get passwdControl () {
+    return this.secuForm.get('passwd') as FormControl;
+  }
+  
+  get confpasswdControl () {
+    return this.secuForm.get('confpasswd') as FormControl;
+  }
+
+  initCocktailFormEffect = effect(() => {
+    if (this.profilId) {
+      console.log(this.currentUser.nom)
+      this.nomControl.setValue(this.currentUser.nom)
+      this.prenomControl.setValue(this.currentUser.prenom)
+      this.nomentControl.setValue(this.currentUser.noment)
+      this.emailControl.setValue(this.currentUser.email)
+    }
+  })
+
+  async submitSecu() {
+      
+      this.formSubmitted.set(true);
+      
+       
+    } 
+
+    async submit() {
+      
+      this.formSubmitted.set(true);
+      if (this.profilForm.valid) {
+        const profilForm = this.profilForm.getRawValue() as ProfilForm;
+        const { _id} = this.currentUser;
+        const newUSer = {
+          _id:_id,
+          nom : profilForm.nom,
+          prenom: profilForm.prenom,
+          noment: profilForm.noment,
+          email : profilForm.email
+        }
+        
+        try {
+          const userMod = await this.userService.modifUser(newUSer);
+         
+          this.show.update((a) => !a)
+          setTimeout(() => {
+              this.show.update((a) => !a)
+          }, 3000)
+          
+        } catch (e: any) {
+          console.log(e);
+          
+        }
+      } 
+    } 
+
+}
+
+

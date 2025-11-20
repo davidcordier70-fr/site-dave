@@ -1,0 +1,105 @@
+@use './../../../styles/mixins' as mixin;
+
+.competences-container {
+      display: grid;
+      place-content: center;
+      grid-template-columns: repeat(5, 200px);
+      grid-auto-columns: repeat(5, 200px);
+      gap: 20px;
+      
+  @include mixin.sm-lt {
+    grid-template-columns: repeat(3, 200px);
+    grid-auto-columns: repeat(3, 200px);
+  }
+  
+  @include mixin.md-lt {
+    grid-template-columns: repeat(3, 200px);
+    grid-auto-columns: repeat(3, 200px);
+  }
+  @include mixin.xs {
+    grid-template-columns: 1fr ;
+   grid-auto-columns: 1fr ;
+   align-items: center;
+   
+  }
+
+    }
+
+    .outils {
+    
+    height:200px;
+    box-shadow: black 0px 4px 8px;
+    display:flex;
+    align-items:center;
+    width:200px;
+    justify-content:space-evenly;
+    flex-direction:column;
+    gap:12px;
+    &:hover {
+    transform: scale(1.1);
+    transition: 1s transform;
+    }
+    cursor:pointer;
+    @include mixin.xs {
+    width:400px;
+   
+  }
+   
+  }
+
+  .pres {
+      background: linear-gradient(45deg,rgba(2, 0, 36, 1) 0%, rgba(44, 58, 71, 1) 35%);
+      width:100%;
+      padding:40px;
+      color:white;
+    }
+
+        
+    .entete1 {
+      color: white;
+    }
+
+    .entete2 {
+      color: white;
+    }
+
+    .entete1 span {
+      font-size:20px;
+      font-weight:bold;
+    }
+
+    .entete1 span.p1{
+      font-size:14px;
+      font-weight:normal;
+    }
+
+    .entete1 button {
+      width:300px;
+    }
+
+    .entete2 button {
+      width:200px;
+    }
+
+  .compet {
+    background:var(--gray-100);
+    padding:20px;
+  }
+
+  
+
+  .outils h2 {
+    color:white;
+    text-align:center;
+  }
+
+  .outils i {
+    color:white;
+    font-size:50px;
+    
+  
+  }
+
+  .mat-divider {
+    border-top-width:3px;
+  }

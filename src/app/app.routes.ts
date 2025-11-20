@@ -5,19 +5,17 @@ import { authGuard } from "./shared/guards/auth-guard";
 
 
 export const routes:Routes = [
-{
+  {
     path:"categorys/:id",
     loadComponent: async () => (await import ('./components/views/categorys/category')).Category
-
   },
   {
     path:"categorys",
     loadComponent: async () => (await import ('./components/views/categorys/category')).Category
-
   },
   {
     path:'admin',
-    canActivate:[authGuard],
+    //canActivate:[authGuard],
     loadChildren:async() => (await import('./components/views/admin/admin.routes')).routes
   },
   {
@@ -34,9 +32,17 @@ export const routes:Routes = [
     loadComponent: async () => (await import ('./components/views/contact/contact')).Contact
   },
   {
-    path:'profil',
+    path:'profil/:id',
     canActivate:[authGuard],
-    loadComponent: async () => (await import ('./components/views/contact/contact')).Contact
+    loadComponent: async () => (await import ('./components/views/profil/profil')).Profil
+  },
+  {
+    path:'parcours',
+    loadComponent: async () => (await import ('./components/views/parcours/parcours')).Parcours
+  },
+  {
+    path:'realisations',
+    loadComponent: async () => (await import ('./components/views/realisations/realisations')).Realisations
   },
   {
     path:'',

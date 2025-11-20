@@ -1,8 +1,15 @@
 export interface User {
-  _id: string;
-  nom: string;
-  prenom: string;
-  noment: string;
+  _id: string | null;
+  nom: string | null;
+  prenom: string | null;
+  noment: string | null;
+  email: string;
+}
+
+export interface ProfilForm {
+  nom: string | null;
+  prenom: string | null;
+  noment: string | null;
   email: string;
 }
 

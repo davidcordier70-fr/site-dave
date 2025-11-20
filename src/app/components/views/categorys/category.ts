@@ -1,14 +1,15 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { CategoryFilter } from "./components/category-filter"
 import { CategoryList } from "./components/category-list";
 import { CompetenceService } from '../../../shared/services/competence.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, OnSameUrlNavigation } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { competencesData } from '../../../shared/data/competence.data';
 import { CategoryInterface, CompetenceInterface, CompetenceInterfaceFDisplay } from '../../../shared/interfaces';
 import { categoryData } from '../../../shared/data/category.data';
 import { CategoryService } from '../../../shared/services/category.service';
+import { Location } from '@angular/common';
 
 
 
@@ -33,6 +34,7 @@ import { CategoryService } from '../../../shared/services/category.service';
 export class Category {
 
   donnees = competencesData;
+  private location = inject(Location);
   private competenceService = inject(CompetenceService);
   private activatedRoute = inject(ActivatedRoute);
   category = toSignal(this.activatedRoute.params)()!['id']; 
@@ -51,7 +53,13 @@ export class Category {
   initialValue=signal(<CompetenceInterfaceFDisplay[]>([]))
   initialValueDisplays=computed(() => {
       console.log("recalcul")
-      console.log(this.categorysFilter())
+      console.log(this.selectedCategory())
+      if (this.selectedCategory() !== null) {
+        console.log("coucou")
+        this.location.go(`/categorys/${this.selectedCategory()}/`)
+      } else {
+        this.location.go(`/categorys/`)
+      }
       let compet = <CompetenceInterface[]>([])
       let competenceDisplay = <CompetenceInterfaceFDisplay>({})
       const competenceDisplays = <CompetenceInterfaceFDisplay[]>([])
@@ -90,20 +98,28 @@ export class Category {
       console.log(competenceDisplays)
       return competenceDisplays 
     }) 
+
   initCocktailFormEffect = effect(() => {
-    if (this.category !== "") {
-      this.selectedCategory.set(this.category)
-    }
+    console.log("effect")
+    
+    if (this.category !== undefined) {
+      console.log("coucou")
+      this.selectedCategory.set(this.category())
+      
+    } 
+    
     console.log(this.selectedCategory)
     //console.log(this.activatedRoute.params)
   })
 
   constructor() {
-    
+    console.log("constructor")
     if (this.category === undefined) {
       this.selectedCategory.set(null) 
+      
     } else {
       this.selectedCategory.set(this.category)
+      
     }
     console.log("2 "+this.selectedCategory())
   }

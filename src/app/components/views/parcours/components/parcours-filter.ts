@@ -7,18 +7,18 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { ParcoursService } from '../../../../shared/services/parcours.service';
 
 @Component({
-  selector: 'app-category-filter',
+  selector: 'app-parcours-filter',
   imports: [FormsModule, MatCheckboxModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDividerModule],
   template: `
     <mat-form-field>
       <mat-label>Choisir une categorie ...</mat-label>
-      <select matNativeControl [(ngModel)]="selectedCategory">
+      <select matNativeControl [(ngModel)]="selectedparcours">
         <option [ngValue]='null'>Toutes les catégories</option>
-        @for (category of categorysFilter(); track category._id) {
-          <option [ngValue]="category.libelle_cat">{{ category.libelle }}</option>
-        }
+        <option value="competences">Mes expériences</option>
+        <option value="formation">Ma formation</option>
       </select>
     </mat-form-field>
     <mat-divider></mat-divider>
@@ -37,22 +37,16 @@ import { MatDividerModule } from '@angular/material/divider';
     }
   `,
 })
-export class CategoryFilter {
-  selectedCategory = model.required<string | null>()
-  categoryService=inject(CategoryService)
-  categorysFilter = computed(() => this.categoryService.categoryResource.value()  ) 
-  disableSelect = new FormControl(false);
-  
+export class ParcoursFilter {
+  selectedparcours = model.required<string | null>()
+  parcoursService = inject(ParcoursService)
+  experiencesList = computed(() => this.parcoursService.experienceResource.value())
+  formationsList = computed(() => this.parcoursService.FormationResource.value())
   //categorys = signal<CategoryInterface[]>(categoryData)
   //selectedCategory = computed(() => this.category() as string);
   
 
-  initCocktailFormEffect = effect(() => {
-    console.log("selct : "+this.selectedCategory())
-    //console.log(this.activatedRoute.params)
-  })
-
-  
+    
 
   
 

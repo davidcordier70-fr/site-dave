@@ -7,6 +7,8 @@ import { RouterLink, RouterLinkActive }  from "@angular/router";
   template: `
     <a routerLink="categorys" routerLinkActive="active-link" class='mb-20'>Categories</a>
     <a routerLink="competences" routerLinkActive="active-link" class='mb-20'>Compétences</a>
+    <a routerLink="experiences" routerLinkActive="active-link" class='mb-20'>Expériences</a>
+    <a routerLink="formations" routerLinkActive="active-link" class='mb-20'>Formations</a>
     
   `,
   styles: `

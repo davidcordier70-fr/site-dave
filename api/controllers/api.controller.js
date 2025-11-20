@@ -1,7 +1,8 @@
-const { getCategorys,  createCategory, getCompetences, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage} = require('../queries/api.queries')
+const { getCategorys,  createCategory, getCompetences, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation } = require('../queries/api.queries')
 const jsonwebtoken = require('jsonwebtoken');
 const { key, keyPub } =  require('./../keys/index')
 const bcrypt = require('bcrypt');
+
 
 exports.categorysList = async (req, res, next) => {
     try {
@@ -67,6 +68,11 @@ exports.createCompetence = async (req, res) => {
 exports.createUser = async (req, res) => {
     try {
         const newUser = await createUser(req.body)
+        const { email } = req.body
+        console.log(email)
+        if (email !== undefined) {
+            data = await main(email)
+        }
         res.json(newUser)
     } catch(e) {
         console.log(e)
@@ -74,6 +80,19 @@ exports.createUser = async (req, res) => {
             return res.status(400).json("adresse email déjà utilisée");
          }
         return res.status(400).json("oops une erreur est survenue");
+    }
+}
+
+exports.userUpdate = async (req, res) => {
+    const userId =req.params.id
+    try {
+        console.log(userId)
+        //const tweet = await getTweet(tweetId)
+        const newUser = await updateUser(userId, req.body) 
+        res.status(200).json(req.body)
+    } catch(e) {
+        const errors = Object.keys(e.errors).map((key) => e.errors[key].message)
+        console.log(errors)
     }
 }
 
@@ -99,7 +118,20 @@ exports.currentUser = async (req, res) => {
 
 exports.createMessage = async (req, res) => {
   const message = await createMessage(req.body)
+  
   res.json(message)
+};
+
+exports.createExperience = async (req, res) => {
+  const experience = await createExperience(req.body)
+  
+  res.json(experience)
+};
+
+exports.createFormation = async (req, res) => {
+  const formation = await createFormation(req.body)
+  
+  res.json(formation)
 };
 
 exports.deleteUser = (req, res) => {

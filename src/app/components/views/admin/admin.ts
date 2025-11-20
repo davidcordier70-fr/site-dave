@@ -14,6 +14,11 @@ import { RouterOutlet } from "@angular/router"
     class:'d-flex flex-row flex-fill'
   },
   styles: `
+    :host {
+      background-color:var(--gray-100);
+      color:black;
+    }
+
 
   `
 })

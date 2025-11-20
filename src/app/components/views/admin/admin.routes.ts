@@ -17,6 +17,16 @@ export const routes:Routes = [
       
     },
     {
+      path:'experiences',
+      loadChildren:async() => (await import('./views/admin-experiences/admin-experiences-route')).routes
+      
+    },
+    {
+      path:'formations',
+      loadChildren:async() => (await import('./views/admin-formations/admin-formations-route')).routes
+      
+    },
+    {
       path:'',
       pathMatch:"full",
       redirectTo:'coktails'

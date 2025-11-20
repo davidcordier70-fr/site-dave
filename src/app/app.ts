@@ -1,9 +1,7 @@
+
+
 import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, resource, signal, viewChild } from '@angular/core';
-import { Header } from './components/header';
-import { Footer } from "./components/footer";
-import { RouterLink, RouterOutlet } from "@angular/router";
-import { Home } from "./components/views/Home/home";
-import { Sidebar } from './components/sidebar';
+import { ActivatedRoute, Router, RouterLink, RouterModule, RouterOutlet } from "@angular/router";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
@@ -12,12 +10,15 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from './shared/services/auth.service';
 import {MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 import {
   MatDialog,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
 } from '@angular/material/dialog';
+import { routes } from './app.routes';
 
 
 interface FoodNode {
@@ -30,6 +31,7 @@ interface FoodNode {
   imports: [MatSidenavModule, MatCheckboxModule, FormsModule, MatButtonModule, MatTreeModule, MatButtonModule, MatIconModule, RouterOutlet, RouterLink, MatMenuModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    
     <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
                 (closed)="events.push('close!')" class='sidenav'>
@@ -37,7 +39,7 @@ interface FoodNode {
         <i class="fa-solid fa-house"></i>
         <span>Accueil</span>
       </a>
-      <a class='d-flex flex-row menu' routerLink="categorys">
+      <a class='d-flex flex-row menu' (click)="reloadComponent('categorys')">
         <i class="fa-solid fa-book-open"></i>
         <span>Mes compétences</span>
       </a>
@@ -82,7 +84,7 @@ interface FoodNode {
             <span>{{ currentUser().prenom }} {{ currentUser().nom }}</span>
             <span>{{ currentUser().email }}</span>
         </div>
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="['profil', currentUser()._id]">
             <i class="fa-solid fa-user pr-10"></i>
             <span>Votre profil</span>
           </button>
@@ -120,88 +122,37 @@ interface FoodNode {
   </mat-sidenav-container>
   `,
   styles: `
-.example-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  
-}
 
-.navbar {
-  display:flex;
-  align-items:center;
-  height:80px;
-  background:var(--mat-sys-tertiary);
-  padding-right:10px;
-
-}
-
-.photo {
-  margin:auto;
-  width:100%;
-}
-
-.navbar .fa-bars {
-  color:white;
-}
-
-.navbar span {
-  color:white;
-}
-
-.navbar img {
-  width:60px;
-  border-radius:100px;
-  
-}
-
-.mat-sidenav-content {
-  display:flex;
-  flex-direction:column;
-  background:var(--gray-700);
-  
-}
-
-
-.navbar a {
-  text-align:left;
-  color:white;
-} 
-.sidenav {
-  background:var(--gray-700);
-  padding:20px;
-}
-
-::ng-deep .customize {
-  padding:15px 10px 10px 10px;
-}
-
-::ng-deep .customize button:hover {
-  
-  color:white;
-  
-}
-
-.mat-mdc-menu-item:not([disabled]):hover {
-  background-color:var(--gray-700);
-}
 
 
    
-  `
+  `,
+  styleUrl: 'app.scss'
+
+
+
+   
+  
 })
 export class App {
 
+   
   readonly authService = inject(AuthService);
   isLoggedin = this.authService.isLoggedin;
   currentUser=computed(() => this.authService.currentUserResource.value());
+  router = inject(Router)
+  activatedRoute=inject(ActivatedRoute)
 
   public logout() {
     this.authService.logout();
   }
 
+  reloadComponent(uri: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate([uri])});
+    //this.router.navigateByUrl('/categorys', { onSameUrlNavigation: 'reload'})
+    
+  }
   readonly menuTrigger = viewChild.required(MatMenuTrigger);
   
 
