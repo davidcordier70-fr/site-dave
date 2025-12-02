@@ -295,7 +295,7 @@ export class AdminFormationsForm implements OnInit{
           
         );
       
-      this.router.navigateByUrl('/admin/formations/listfor');
+      this.router.navigateByUrl('/admin/formations/listfor/');
     } catch (e) {
     } 
   }

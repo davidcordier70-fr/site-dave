@@ -8,7 +8,10 @@ _id:string,
  montYearDeb: string,
  montYearFin:string,
  lieu:string | null,
- missions:string[]
+ missions:string[],
+ postes_occupes:string[],
+ technologies:string[],
+ image:String | null
 }
 
 export interface ExperienceInterfaceForm {
@@ -18,5 +21,8 @@ export interface ExperienceInterfaceForm {
  montYearDeb: String,
  montYearFin:String,
  lieu:string | null,
- missions:string[]
+ missions:string[],
+ postes_occupes:string[],
+ technologies:string[],
+ image:String | null
 }

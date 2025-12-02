@@ -17,8 +17,9 @@ import { ParcoursService } from '../../../../shared/services/parcours.service';
       <mat-label>Choisir une categorie ...</mat-label>
       <select matNativeControl [(ngModel)]="selectedparcours">
         <option [ngValue]='null'>Toutes les catégories</option>
-        <option value="competences">Mes expériences</option>
-        <option value="formation">Ma formation</option>
+        @for (parcours of parcoursFilter(); track parcours.id) {
+          <option [ngValue]="parcours.id">{{ parcours.libelle}}</option>
+        }
       </select>
     </mat-form-field>
     <mat-divider></mat-divider>
@@ -39,9 +40,21 @@ import { ParcoursService } from '../../../../shared/services/parcours.service';
 })
 export class ParcoursFilter {
   selectedparcours = model.required<string | null>()
-  parcoursService = inject(ParcoursService)
-  experiencesList = computed(() => this.parcoursService.experienceResource.value())
-  formationsList = computed(() => this.parcoursService.FormationResource.value())
+  
+
+  parcoursFilter = signal([
+    {
+      id:'experiences',
+      libelle:'experiences'
+    },
+    {
+      id:'formations',
+      libelle:'formations'
+    }
+
+  ])
+
+
   //categorys = signal<CategoryInterface[]>(categoryData)
   //selectedCategory = computed(() => this.category() as string);
   

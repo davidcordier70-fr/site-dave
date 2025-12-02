@@ -19,6 +19,7 @@ import {
   MatDialogContent,
 } from '@angular/material/dialog';
 import { routes } from './app.routes';
+import { ProgressBarQueryExample } from "./components/sidebar";
 
 
 interface FoodNode {
@@ -64,8 +65,9 @@ interface FoodNode {
 
       
     </mat-sidenav>
-
+    
     <mat-sidenav-content class='mat-sidenav-content'>
+      
       <div class='navbar'>
       <button matButton (click)="sidenav.toggle()"><i class="fa-solid fa-bars"></i></button>
       <div class='d-flex align-items-center mr-20 flex-fill'>
@@ -122,6 +124,8 @@ interface FoodNode {
   </mat-sidenav-container>
   `,
   styles: `
+
+  
 
 
 

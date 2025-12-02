@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router"
-import { Sidebar } from './sidebar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 

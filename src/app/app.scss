@@ -12,6 +12,7 @@
     .sidenav {
   background:var(--gray-700);
   padding:20px;
+  width:280px;
   @include mixin.lg-lt {
     display:none;
   }
@@ -91,11 +92,10 @@
   min-height: 100vh;
 }
 
-.competences-container {
-      display: grid;
-      place-content: center;
-      grid-template-columns: repeat(5, 200px);
-      grid-auto-columns: repeat(5, 200px);
-      gap: 20px;
+.card {
+  background:white;
+  box-shadow: black 0px 2px 2px;
 
-    }
+}
+
+

@@ -1,0 +1,97 @@
+@use './../../../styles/mixins' as mixin;
+
+.competences-container {
+      display: grid;
+      place-content: center;
+      grid-template-columns: repeat(3, 350px);
+      grid-auto-columns: repeat(3, 350px);
+      gap: 20px;
+      
+
+      
+  @include mixin.sm-lt {
+    grid-template-columns: repeat(3, 200px);
+    grid-auto-columns: repeat(3, 200px);
+  }
+  
+  @include mixin.md-lt {
+    grid-template-columns: repeat(3, 200px);
+    grid-auto-columns: repeat(3, 200px);
+  }
+  @include mixin.xs {
+    grid-template-columns: 1fr ;
+   grid-auto-columns: 1fr ;
+   align-items: center;
+   
+  }
+
+    }
+
+    
+
+    .infosent {
+      background:white;
+      color:black;
+      align-items: center;
+      //padding: 20px 0px 20px 20px;
+    }
+    
+    .infoscomp {
+      padding:20px;
+    }
+
+    .divimg {
+      height:80px;
+      width:150px;
+      align-items: center;
+      display:flex;
+      justify-content:end;
+    }
+    
+
+    .imgcomp1 {
+      width:200px;
+    }
+
+    .background-comp {
+      //background:linear-gradient(45deg, #1c8a4aff 0%, #16C92B 100%);
+      height:80px;
+      border-radius:10px;
+    }
+
+    .comp {
+      margin-bottom:20px;
+      background:var(white);
+      box-shadow: black 0px 2px 2px;
+      background:var(--gray-700);
+      border-radius:10px;
+      color:white;
+      
+    }
+
+    .comp span {
+      color:black;
+    }
+
+    .comp h2 {
+      color:white;
+      font-size:14px;
+      border:none;
+    }
+
+    .mat-divider.mat-divider-vertical {
+      height:80px;
+      margin-left:20px;
+      margin-right:20px;
+      border-right-width:3px;
+      
+    }
+
+    .mat-divider {
+      border-top-width:2px;
+    }
+
+    .listcomp span {
+      color:white;
+      font-weight:normal;
+    }

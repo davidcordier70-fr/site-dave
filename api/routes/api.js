@@ -1,10 +1,14 @@
 const express = require('express')
 //const api = require('./api')
-const { categorysList, createCategory, competencesList, categoryDelete, createCompetence, createUser, authUser, currentUser, deleteUser, createMessage, userUpdate, createExperience, createFormation } = require('./../controllers/api.controller')
+const { categorysList, createCategory, competencesList, experiencesList, formationsList, categoryDelete, createCompetence, createUser, authUser, currentUser, deleteUser, createMessage, userUpdate, createExperience, createFormation, passwordUpdate } = require('./../controllers/api.controller')
 
 const router = express.Router()
 
 router.get('/categorys', categorysList)
+
+router.get('/parcours/experiences', experiencesList)
+
+router.get('/parcours/formations', formationsList)
 
 router.post('/categorys', createCategory)
 
@@ -16,7 +20,9 @@ router.post('/competences', createCompetence)
 
 router.delete('/categorys/:categoryId', categoryDelete)
 
-router.patch('/users/:id', userUpdate)
+router.patch('/users/:id/infos', userUpdate)
+
+router.patch('/users/:id/password', passwordUpdate)
 
 router.post("/users", createUser);
 

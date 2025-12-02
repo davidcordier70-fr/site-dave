@@ -30,5 +30,11 @@ export const categoryData: CategoryInterfaceGraph[] = [
     libelle:'Outils',
     background:'linear-gradient(45deg, #1c8a4aff 0%, #16C92B 100%)',
     codeClass:'fa-solid fa-screwdriver-wrench'
+  },
+  {
+    category_name:'servdistr',
+    libelle:'Serveurs',
+    background:'linear-gradient(45deg, #130f40 0%, #30336b 100%)',
+    codeClass:'fa-solid fa-server'
   }
 ]

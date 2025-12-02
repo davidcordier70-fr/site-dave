@@ -109,7 +109,7 @@ export const MY_FORMATS = {
       </div>
       <div class="d-flex flex-column gap-12 mb-10">
         <mat-form-field>
-          <mat-label for="datedeb">Mois et année de début de l'expérience</mat-label>
+          <mat-label for="datedeb"  [class.labelddeb]="ddeb() === false">Mois et année de début de l'expérience</mat-label>
           <input matInput [matDatepicker]="dp" [formControl]="datedeb" id="datedeb">
           <mat-hint>MM/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
@@ -127,7 +127,7 @@ export const MY_FORMATS = {
       </div>
       <div class="d-flex flex-column gap-12 mb-10">
         <mat-form-field>
-          <mat-label for="datedeb">Mois et année de début de l'expérience</mat-label>
+          <mat-label for="datefin" [class.labeldfin]="dfin() === false">Mois et année de début de l'expérience</mat-label>
           <input matInput [matDatepicker]="dp2" [formControl]="datefin" id="datefin">
           <mat-hint>MM/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="dp2"></mat-datepicker-toggle>
@@ -142,6 +142,17 @@ export const MY_FORMATS = {
         <p class="error">Le mois et l'année de début de l'expérience est obligatoire</p>
         }
       </div>
+      <div class="mb-20">
+      <div class="d-flex align-items-center gap-12 mb-10">
+          <label class="flex-auto">Ingredients</label>
+          <button
+            type="button"
+            (click)="addMission()"
+            class="btn btn-primary"
+          >
+            Ajouter
+          </button>
+        </div>
       <ul formArrayName="missions">
           @for(competence of missionsControl.controls; track $index) {
           <li class="d-flex align-items-center gap-12 mb-10">
@@ -152,9 +163,10 @@ export const MY_FORMATS = {
           </li>
           }
         </ul>
+      </div>
       <div>
         <button
-          [disabled]="experienceForm.invalid || this.isLoading()"
+          [disabled]="experienceForm.invalid"
           class="btn btn-primary"
         >
           Sauvegarder
@@ -162,8 +174,28 @@ export const MY_FORMATS = {
       </div>
     </form>
   `,
-  host: { class: 'card' },
-  styles: ` .card { padding: 8px; }`,
+  //host: { class: 'card' },
+  styles: ` 
+  
+  .card { 
+     padding: 8px; 
+  }
+    
+     form {
+      
+      color:black;
+    }
+
+    .labelddeb {
+      color:red;
+    }
+
+    .labeldfin {
+      color:red;
+    }
+  
+  
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminExperiencesForm {
@@ -171,20 +203,37 @@ export class AdminExperiencesForm {
   private parcoursService = inject(ParcoursService);
   private router = inject(Router);
   experiences = computed(() => this.parcoursService.experienceResource.value());
-  isLoading = signal(false);
+  //isLoading = signal(false);
+  ddeb = signal(false)
+  dfin = signal(false)
+
+  experienceForm = this.fb.group({
+    titre: ['', [Validators.required, Validators.minLength(2)]],
+    noment: ['', [Validators.required, Validators.minLength(2)]],
+    typContrat:['', Validators.required],
+    montYearDeb: [moment(), Validators.required],
+    montYearFin: [moment(), Validators.required],
+    lieu: ['', Validators.required],
+    missions: this.fb.array([]),
+    postes_occupes: this.fb.array([]),
+    technologies: this.fb.array([]),
+    image: ['', Validators.required],
+  });
 
   readonly datedeb = new FormControl(moment());
   setMonthAndYearDeb(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    this.ddeb.set(true);
     const ctrlValue = this.datedeb.value ?? moment();
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
     this.datedeb.setValue(ctrlValue);
-    this.experienceForm.get('montYearDeb')?.setValue(this.datefin.value)
+    this.experienceForm.get('montYearDeb')?.setValue(this.datedeb.value)
     datepicker.close();
   }
 
   readonly datefin = new FormControl(moment());
   setMonthAndYearEnd(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    this.dfin.set(true);
     const ctrlValue = this.datefin.value ?? moment();
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
@@ -197,15 +246,11 @@ export class AdminExperiencesForm {
     this.missionsControl.removeAt(index);
   }
 
-  experienceForm = this.fb.group({
-    titre: ['', [Validators.required, Validators.minLength(2)]],
-    noment: ['', [Validators.required, Validators.minLength(2)]],
-    typContrat:['', Validators.required],
-    montYearDeb: [moment(), Validators.required],
-    montYearFin: [moment(), Validators.required],
-    lieu: ['', Validators.required],
-    missions: this.fb.array([]),
-  });
+  addMission() {
+    this.missionsControl.push(this.fb.control(''));
+  }
+
+  
 
   get dateDebControl() {
     return this.datedeb;
@@ -237,43 +282,61 @@ export class AdminExperiencesForm {
   }
 
   async submit() {
-    this.isLoading.set(true);
-     console.log(this.experienceForm.getRawValue().montYearDeb?.month());
-     console.log(this.experienceForm.getRawValue().montYearDeb?.year());
-     let monthDeb=<string>('');
-     let yearDeb=<string>('');
-     monthDeb =  this.experienceForm.getRawValue().montYearDeb?.month().toString() as string
-     yearDeb = this.experienceForm.getRawValue().montYearDeb?.year().toString() as string
-     const montYearDeb = monthDeb + yearDeb
-     console.log(montYearDeb)
-     let monthEnd=<string>('');
-     let yearEnd=<string>('');
-     monthEnd =  this.experienceForm.getRawValue().montYearFin?.month().toString() as string
-     yearEnd = this.experienceForm.getRawValue().montYearFin?.year().toString() as string
-     const montYearFin = monthEnd + yearEnd
-     console.log(montYearFin)
-    
-     
-    try {
-        await this.parcoursService.addExperience({
-            titre: this.experienceForm.getRawValue().titre,
-            noment: this.experienceForm.getRawValue().noment,
-            typContrat: this.experienceForm.getRawValue().typContrat,
-            montYearDeb: montYearDeb,
-            montYearFin: montYearFin,
-            lieu: this.experienceForm.getRawValue().lieu,
-            missions:[]
-         }
-         
-          
-        );
+      this.experienceForm.getRawValue().missions.forEach((value) => console.log(value))
+      if (this.experienceForm.valid && this.ddeb() && this.dfin()) {
+      console.log(this.experienceForm.getRawValue().montYearDeb?.utc().month());
+
       
-      this.router.navigateByUrl('/admin/experiences/listexp');
-    } catch (e) {
-    } finally {
-      this.isLoading.set(false);
-    }
+      
+      let yearDeb=<string>(''); 
+      let moisDeb=<number>(0); 
+      moisDeb = Number(this.experienceForm.getRawValue().montYearDeb?.month()) + 1 
+      const infmoisdeb =  Number(this.experienceForm.getRawValue().montYearDeb?.month()) < 9 ? true : false
+      console.log(infmoisdeb)
+      
+      yearDeb = this.experienceForm.getRawValue().montYearDeb?.year().toString() as string
+      const montYearDeb = (infmoisdeb ? "0" + moisDeb.toString() : moisDeb.toString()) + yearDeb
+      //console.log(montYearDeb)
+      let moisFin=<number>(0); 
+      let yearEnd=<string>('');
+      moisFin =  Number(this.experienceForm.getRawValue().montYearFin?.month()) + 1
+      const infmoisFin =  Number(this.experienceForm.getRawValue().montYearFin?.month()) < 9 ? true : false
+      yearEnd = this.experienceForm.getRawValue().montYearFin?.year().toString() as string
+      const montYearFin = (infmoisFin ? "0" + moisFin.toString() : moisFin.toString()) + yearEnd
+      //console.log(montYearFin)
+      
+      
+      try {
+          await this.parcoursService.addExperience({
+              titre: this.experienceForm.getRawValue().titre,
+              noment: this.experienceForm.getRawValue().noment,
+              typContrat:this.experienceForm.getRawValue().typContrat,
+              montYearDeb: montYearDeb,
+              montYearFin: montYearFin,
+              lieu: this.experienceForm.getRawValue().lieu,
+              missions:this.experienceForm.getRawValue().missions as string[],
+              postes_occupes:this.experienceForm.getRawValue().postes_occupes as string[],
+              technologies:this.experienceForm.getRawValue().technologies as string[],
+              image: this.experienceForm.getRawValue().image,
+          })
+          this.router.navigateByUrl('/admin/experiences/listexp');
+            
+                 
+        
+      } catch (e) {
+      } 
   }
+  }
+
+  effect() {
+    console.log(this.experienceForm.invalid)
+  }
+  ngOnInit(): void {
+    
+   this.datedeb.setValue(this.datedeb.defaultValue)
+    this.datefin.setValue(this.datefin.defaultValue)
+    
+  }  
 }
 
 

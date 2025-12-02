@@ -26,9 +26,9 @@ import { CoktailsService } from 'app/shared/services/coktails-service';*/
   imports: [ReactiveFormsModule],
   template: `
     @if (this.competenceId) {
-    <h3 class="mb-20">Modification d'un catégorie</h3>
+    <h3 class="mb-20">Modification d'une compétence</h3>
     } @else {
-    <h3 class="mb-20">Création d'une catégorie</h3>
+    <h3 class="mb-20">Création d'une compétence</h3>
     }
     <form [formGroup]="competenceForm" (submit)="submit()">
       <div class="d-flex flex-column gap-12 mb-10">
@@ -42,14 +42,34 @@ import { CoktailsService } from 'app/shared/services/coktails-service';*/
       <div class="d-flex flex-column gap-12 mb-10">
         <label for="image">Image</label>
         <input formControlName="image" id="image" type="text" />
+        @if (imageControl.errors?.['required'] && (imageControl.touched ||
+        competenceForm.dirty)) {
+        <p class="error">L'image est obligatoire</p>
+        }
       </div>
       <div class="d-flex flex-column gap-12 mb-10">
         <label for="category_name">Catégorie</label>
         <select id="category_name" formControlName="category_name">
           @for (category of categorys(); track category._id) {
-            <option [value]="category.libelle">{{ category.libelle}}</option>
+            <option [value]="category.libelle_cat">{{ category.libelle}}</option>
           }
         </select>
+      </div>
+      <div class="d-flex flex-column gap-12 mb-10">
+        <label for="padding_image">Padding de l'image</label>
+        <input formControlName="padding_image" id="padding_image" type="text" />
+        @if (paddingControl.errors?.['required'] && (paddingControl.touched ||
+        competenceForm.dirty)) {
+        <p class="error">Le padding de l'image de la compétence est obligatoire</p>
+        }
+      </div>
+      <div class="d-flex flex-column gap-12 mb-10">
+        <label for="gradient">Gradient</label>
+        <input formControlName="gradient" id="gradient" type="text" />
+        @if (gradientControl.errors?.['required'] && (gradientControl.touched ||
+        competenceForm.dirty)) {
+        <p class="error">Gradient obligatoire</p>
+        }
       </div>
       <div class="mb-20">
         <div class="d-flex align-items-center gap-12 mb-10">
@@ -99,9 +119,11 @@ export class AdminCompetencesForm {
 
   competenceForm = this.fb.group({
     name: ['', Validators.required],
-    image: [''],
+    image: ['', Validators.required],
     competences: this.fb.array([]),
-    category_name:['']
+    category_name:[''],
+    padding_image:['', Validators.required],
+    gradient:['', Validators.required]
   });
 
   /*initCocktailFormEffect = effect(() => {
@@ -133,6 +155,18 @@ export class AdminCompetencesForm {
 
   get nameControl() {
     return this.competenceForm.get('name') as FormControl;
+  }
+
+  get imageControl() {
+    return this.competenceForm.get('image') as FormControl;
+  }
+
+  get paddingControl() {
+    return this.competenceForm.get('padding_image') as FormControl;
+  }
+
+  get gradientControl() {
+    return this.competenceForm.get('gradient') as FormControl;
   }
 
   deleteCompetence(index: number) {

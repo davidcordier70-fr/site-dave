@@ -1,4 +1,4 @@
-const { getCategorys,  createCategory, getCompetences, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation } = require('../queries/api.queries')
+const { getCategorys,  createCategory, getCompetences, getExperiences, getFormations, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation, updatePassword } = require('../queries/api.queries')
 const jsonwebtoken = require('jsonwebtoken');
 const { key, keyPub } =  require('./../keys/index')
 const bcrypt = require('bcrypt');
@@ -14,6 +14,29 @@ exports.categorysList = async (req, res, next) => {
         next(e)
     }
 }
+
+exports.experiencesList = async (req, res, next) => {
+    try {
+        console.log('get')
+        const experiences = await getExperiences()
+        res.set('Access-Control-Allow-Origin', '*')
+        res.json( experiences)
+    } catch(e) {
+        next(e)
+    }
+}
+
+exports.formationsList = async (req, res, next) => {
+    try {
+        console.log('get')
+        const formations = await getFormations()
+        res.set('Access-Control-Allow-Origin', '*')
+        res.json( formations)
+    } catch(e) {
+        next(e)
+    }
+}
+
 
 exports.createCategory = async (req, res) => {
     try {
@@ -88,11 +111,26 @@ exports.userUpdate = async (req, res) => {
     try {
         console.log(userId)
         //const tweet = await getTweet(tweetId)
+        console.log("body : "+req.body)
         const newUser = await updateUser(userId, req.body) 
         res.status(200).json(req.body)
     } catch(e) {
         const errors = Object.keys(e.errors).map((key) => e.errors[key].message)
         console.log(errors)
+    }
+}
+
+exports.passwordUpdate = async (req, res) => {
+    const userId =req.params.id
+    try {
+        console.log(userId)
+        console.log("body :"+req.body)
+        //const tweet = await getTweet(tweetId)
+        const newUser = await updatePassword(userId, req.body) 
+        res.status(200).json(req.body)
+    } catch(e) {
+        //const errors = Object.keys(e.errors).map((key) => e.errors[key].message)
+        console.log(e)
     }
 }
 

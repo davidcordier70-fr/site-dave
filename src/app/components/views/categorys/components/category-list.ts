@@ -12,32 +12,28 @@ import { MatDividerModule } from '@angular/material/divider';
       <mat-divider></mat-divider>
       <div class='d-flex flex-column mt-20'>
      
-             
-             @for (competence of initial.competences; track $index) {
-                 <div class='comp d-flex'>
-                
-                <img [src]="competence.image" class='imgcomp mr-20'>
-                <div class='d-flex flex-column justify-content-center'>
-                  <span>{{competence.name}}</span>
-                </div>
-                <div class='d-flex flex-column justify-content-center'>
-                  <mat-divider [vertical]="true" ></mat-divider>
-                </div>
-                <div class='d-flex flex-column'>
-                    <h2>Compétences clés</h2>
-                    <mat-divider></mat-divider>
-                    <div class='mt-10'>
-                      @for (comp of competence.competences; track $index) {
-                        @if ($index === 0) {{{comp}}} @else {, {{ comp}}}
-                      
-                      }
+             <div class='mt-20 competences-container'>
+              @for (competence of initial.competences; track $index) {
+                 <div class='comp d-flex flex-column'>
+                    <div class='background-comp' [style.background]="competence.gradient">
                     </div>
-                  </div>  
+                    <div class='d-flex infosent' [style.padding]="competence.padding_image" >
+                      <span class='flex-fill'>{{competence.name}}</span>
+                      <div class='divimg'>
+                        <img [src]="competence.image"  class='imgcomp' >
+                       </div>
+                    </div>
+                    <div class='d-flex flex-column infoscomp'>
+                        <div class='mt-10'>
+                           @for (comp of competence.competences; track $index) {
+                             @if ($index === 0) {{{comp}}} @else {, {{ comp}}}
+                      
+                           }
+                        </div>
+                    </div>  
                   </div>
-                
-              
-                  
               }
+            </div>
             
       </div>
      
@@ -65,54 +61,11 @@ import { MatDividerModule } from '@angular/material/divider';
       
       
     }
-    .imgcomp {
-      width:100px;
-      background-size:cover;
-      background:var(--gray-100);
-      padding:20px;
-      border-radius:20px;
-    }
+    
 
-    .imgcomp1 {
-      width:200px;
-    }
-
-    .comp {
-      margin-bottom:20px;
-      background:var(--gray-700);
-      box-shadow: black 0px 2px 2px;
-      padding:20px;
-      border-radius:10px;
-      color:white;
-    }
-
-    .comp span {
-      color:white;
-    }
-
-    .comp h2 {
-      color:white;
-      font-size:14px;
-      border:none;
-    }
-
-    .mat-divider.mat-divider-vertical {
-      height:80px;
-      margin-left:20px;
-      margin-right:20px;
-      border-right-width:3px;
-      
-    }
-
-    .mat-divider {
-      border-top-width:2px;
-    }
-
-    .listcomp span {
-      color:white;
-      font-weight:normal;
-    }
+    
   `,
+   styleUrl:'./../category.scss'
 })
 export class CategoryList {
 

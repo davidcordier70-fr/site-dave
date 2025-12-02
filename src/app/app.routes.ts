@@ -23,6 +23,11 @@ export const routes:Routes = [
     loadComponent: async () => (await import ('./components/views/signin/signin')).Signin
   },
   {
+    path:'signin/:id',
+    canActivate:[authGuard],
+    loadComponent: async () => (await import ('./components/views/signin/signin')).Signin
+  },
+  {
     path:'signup',
     loadComponent: async () => (await import ('./components/views/signup/signup')).Signup
   },
@@ -43,6 +48,11 @@ export const routes:Routes = [
   {
     path:'realisations',
     loadComponent: async () => (await import ('./components/views/realisations/realisations')).Realisations
+  },
+  {
+    path:'logout',
+    canActivate:[authGuard],
+    loadComponent: async () => (await import ('./components/logout')).Logout
   },
   {
     path:'',

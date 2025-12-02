@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, resource } from '@angular/core';
+import { computed, inject, Injectable, resource, signal } from '@angular/core';
 import { SigninForm, User } from '../interfaces';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ const API_AUTH = '/api/auth/';
 })
 export class AuthService {
 
+  deconnexion =signal(0);
   currentUserResource = resource({
     loader: () => this.fetchCurrentUser(),
   });
@@ -50,6 +51,6 @@ export class AuthService {
       method: 'DELETE',
     });
     this.currentUserResource.reload();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/signin');
   }
 }

@@ -39,6 +39,14 @@ exports.getCompetences = () => {
     return Competences.find({}).exec()
 }
 
+exports.getExperiences = () => {
+    return Experiences.find({}).exec()
+}
+
+exports.getFormations = () => {
+    return Formations.find({}).exec()
+}
+
 exports.createCompetence = (competence) => {
     const newCompetence = new Competences(competence)
     return newCompetence.save()
@@ -101,6 +109,20 @@ exports.updateTweet = (tweetId, tweet) => {
 
 exports.updateUser = (id, User) => {
   return Users.findByIdAndUpdate(id, { $set: User }, { runValidators: true });
+}
+
+exports.updatePassword = async (id, user) => {
+  const { email, nom, prenom, noment, password } = user;
+ 
+  const newUser = {
+    email,
+    nom,
+    prenom,
+    noment,
+    password: await bcrypt.hash(password, 8),
+  };
+  
+  return Users.findByIdAndUpdate(id, { $set: newUser }, { runValidators: true });
 }
 
 exports.main = async (email) => {

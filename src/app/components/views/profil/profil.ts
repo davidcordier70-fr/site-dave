@@ -83,14 +83,14 @@ import { MatDialog } from '@angular/material/dialog';
           <div class="d-flex flex-column">
             <label for="passwd" class='mb-10'>Nouveau mot de passe *</label>
             <input formControlName="passwd" type="password" id="passwd" autocomplete="off" class='mb-10'/>
-              @if (passwdControl.errors?.['required'] && (passwdControl.touched || formSubmitted())) {
+              @if (passwdControl.errors?.['required'] && (passwdControl.touched || formSecuSubmitted())) {
                 <span class="error">Mot de passe obligatoire</span>
              } 
           </div>
           <div class="d-flex flex-column pl-20">
             <label for="confpasswd" class='mb-10'>Confirmation *</label>
             <input formControlName="confpasswd" type="password" id="confpasswd" autocomplete="off" class='mb-10'/>
-            @if (confpasswdControl.errors?.['required'] && (confpasswdControl.touched || formSubmitted())) {
+            @if (confpasswdControl.errors?.['required'] && (confpasswdControl.touched || formSecuSubmitted())) {
               <span class="error">Mot de passe obligatoire</span>
             } <!--@else if (passwdControl.value != confpasswdControl.value) {
               <span class="error">Les deux mots de passe doivent être identiques</span>
@@ -222,6 +222,7 @@ export class Profil {
   });
 
   formSubmitted = signal(false);
+  formSecuSubmitted = signal(false);
   readonly router = inject(Router);
 
   get emailControl() {
@@ -258,15 +259,49 @@ export class Profil {
     }
   })
 
+  async deconnexion() {
+    //await this.router.navigate(['signin', 1], { skipLocationChange:true})
+    
+
+  }
+
+   
   async submitSecu() {
-      
-      this.formSubmitted.set(true);
+      console.log("securite");
+      this.formSecuSubmitted.set(true);
+      if (this.profilForm.valid) {
+        const password = this.secuForm.getRawValue().passwd;
+        const { _id, nom, prenom, noment, email} = this.currentUser;
+        const newUSer = {
+          _id:_id,
+          nom : nom,
+          prenom: prenom,
+          noment: noment,
+          email : email,
+          password: password
+        }
+        
+        try {
+          const userPasswd = await this.userService.modifPassword(newUSer);
+          
+          console.log("après")
+          this.authService.deconnexion.set(1)
+          this.authService.logout()
+          //await this.deconnexion()
+          
+                   
+          
+        } catch (e: any) {
+          console.log(e);
+          
+        }
+      } 
       
        
     } 
 
     async submit() {
-      
+      console.log("submit");
       this.formSubmitted.set(true);
       if (this.profilForm.valid) {
         const profilForm = this.profilForm.getRawValue() as ProfilForm;
@@ -287,6 +322,7 @@ export class Profil {
               this.show.update((a) => !a)
           }, 3000)
           
+          
         } catch (e: any) {
           console.log(e);
           
@@ -295,5 +331,8 @@ export class Profil {
     } 
 
 }
+
+
+
 
 

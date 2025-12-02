@@ -5,7 +5,9 @@ const CompetenceSchema = schema({
         name : String,
         image: String,
         competences: [String],
-        category_id: String
+        category_name: String,
+        padding_image:String,
+        gradient:String
              
    },
  {

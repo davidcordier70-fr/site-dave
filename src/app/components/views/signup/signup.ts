@@ -4,12 +4,19 @@ import { signal } from '@angular/core';
 import { UserService } from './../../../shared/services/user.service';
 import { UserForm } from '../../../shared/interfaces';
 import { Router, RouterLink } from '@angular/router';
+import { ProgressBarQueryExample } from "../../sidebar";
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample],
   template: `
-    <form [formGroup]="userForm" (submit)="submit()" class="card" autocomplete="off">
+    <div class='d-flex flex-fill flex-column'>
+      <div>
+        <progress-bar-query-example />
+      </div>
+      <div class='d-flex flex-column align-items-center flex-fill justify-content-center'>
+    
+    <form [formGroup]="userForm" (submit)="submit()" class="card d-flex flex-column" autocomplete="off">
       <h2 class="mb-10">Bienvenue !</h2>
       <span class="d-flex flex-column mb-20">Créer votre compte</span>
       <div class="d-flex flex-column mb-20">
@@ -82,14 +89,14 @@ import { Router, RouterLink } from '@angular/router';
           </div>
       </div>
     </form>
+    </div>
+    </div>
   `,
   styles: `
     :host {
       background:linear-gradient(90deg, white 0%, var(--gray-100) 100%);
       display:flex;
       flex-direction:column;
-      justify-content:center;
-      align-items:center;
       flex:1;
       
       

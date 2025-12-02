@@ -29,11 +29,13 @@ import { Location } from '@angular/common';
       flex-direction:column;
 
     }
+    
   `,
+   styleUrl:'category.scss'
 })
 export class Category {
 
-  donnees = competencesData;
+  //donnees = competencesData;
   private location = inject(Location);
   private competenceService = inject(CompetenceService);
   private activatedRoute = inject(ActivatedRoute);
@@ -44,18 +46,14 @@ export class Category {
   categorysFilter = computed(() => {
     console.log(this.selectedCategory())
     if (this.selectedCategory() === '' || this.selectedCategory() == null) { 
-      console.log("all")
-      return this.categoryService.categoryResource.value() 
+       return this.categoryService.categoryResource.value() 
      } else {
       return this.categoryService.categoryResource.value()?.filter(({libelle_cat}) =>libelle_cat === this.selectedCategory())
      } 
   })
   initialValue=signal(<CompetenceInterfaceFDisplay[]>([]))
   initialValueDisplays=computed(() => {
-      console.log("recalcul")
-      console.log(this.selectedCategory())
       if (this.selectedCategory() !== null) {
-        console.log("coucou")
         this.location.go(`/categorys/${this.selectedCategory()}/`)
       } else {
         this.location.go(`/categorys/`)
@@ -65,7 +63,6 @@ export class Category {
       const competenceDisplays = <CompetenceInterfaceFDisplay[]>([])
       let cat_preced=''
       this.categorysFilter()?.map((cat) => {
-        console.log(cat.libelle)
         if (cat_preced === '') {
             compet = <CompetenceInterface[]>([])
             
@@ -83,7 +80,7 @@ export class Category {
         compFiltr?.map((competence) => {
           compet.push(competence)
         })
-        console.log(compet)
+        
         cat_preced = cat.libelle
 
 
@@ -95,25 +92,24 @@ export class Category {
             
             
       }
-      console.log(competenceDisplays)
+      
       return competenceDisplays 
     }) 
 
   initCocktailFormEffect = effect(() => {
-    console.log("effect")
+    
     
     if (this.category !== undefined) {
-      console.log("coucou")
-      this.selectedCategory.set(this.category())
+      
+      this.selectedCategory.set(this.category)
       
     } 
     
-    console.log(this.selectedCategory)
-    //console.log(this.activatedRoute.params)
+    
   })
 
   constructor() {
-    console.log("constructor")
+    
     if (this.category === undefined) {
       this.selectedCategory.set(null) 
       
@@ -121,7 +117,7 @@ export class Category {
       this.selectedCategory.set(this.category)
       
     }
-    console.log("2 "+this.selectedCategory())
+    
   }
 
 }

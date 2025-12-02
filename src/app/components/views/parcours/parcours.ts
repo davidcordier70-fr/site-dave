@@ -1,15 +1,16 @@
-import { Component, model } from '@angular/core';
+import { Component, computed, inject, model, signal } from '@angular/core';
 import { ParcoursContenu } from "./components/parcours-contenu";
 
 import { ParcoursFilter } from "./components/parcours-filter";
+import { ParcoursService } from '../../../shared/services/parcours.service';
 
 @Component({
   selector: 'app-parcours',
-  imports: [ParcoursContenu, ParcoursFilter],
+  imports: [ParcoursContenu],
   template: `
-    filter
-    <app-contenu-parcours>
-    <app-parcours-filter [selectedparcours]="selectedparcours()">
+    
+    <app-contenu-parcours />
+    
   `,
   styles: `
     :host {
@@ -21,10 +22,16 @@ import { ParcoursFilter } from "./components/parcours-filter";
       
       
     }
+    
   `,
 })
 export class Parcours {
 
-  selectedparcours = model.required<string | null>()
+  
+  parcoursService = inject(ParcoursService)
+  experiencesList = computed(() => this.parcoursService.experienceResource.value())
+  formationsList = computed(() => this.parcoursService.FormationResource.value())
+
+
 
 }

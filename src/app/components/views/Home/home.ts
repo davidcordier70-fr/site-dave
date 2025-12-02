@@ -13,7 +13,14 @@ import { AuthService } from '../../../shared/services/auth.service';
   template: `
       
     <div class='d-flex flex-column pres'>
-        <h1 class='mb-20'>Bienvenue</h1>
+        @if (isLoggedin()) {
+          <h1 class='mb-20 '>
+            <span>Bienvenue </span>
+            <span class='titre_accueil'>{{ currentUser().prenom }} {{ currentUser().nom }}</span>
+          </h1>
+        } @else {
+          <h1 class='mb-20'>Bienvenue</h1>
+        }
         <span class='mb-10'>David Cordier Développeur Full Stack</span>
         <span class='p1 mb-20'>Disposant d'une expérience de plus de 27 ans dans le développement informatique, je suis à l'écoute d'une nouvelle opportunité de carrière</span>
         <div class='d-flex'>
@@ -77,6 +84,7 @@ export class Home {
   categorysData = signal(<CategoryInterfaceGraph[]>(categoryData))
   readonly authService = inject(AuthService);
   isLoggedin = this.authService.isLoggedin;
+  currentUser=computed(() => this.authService.currentUserResource.value());
   /*souscategorys = signal(<SousCategory[]>(sousCatagorysData))
 
   productService=inject(ProductService)

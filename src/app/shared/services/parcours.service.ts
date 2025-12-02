@@ -9,11 +9,11 @@ export class ParcoursService {
   BASE_URL='/api/parcours'
 
   experienceResource=resource({
-    loader:async():Promise<ExperienceInterface[]> => await (await fetch(`${this.BASE_URL}/experiences`)).json()
+    loader:async():Promise<ExperienceInterface[]> => await (await fetch(`${this.BASE_URL}/experiences/`)).json()
   })
 
   FormationResource=resource({
-    loader:async():Promise<FormationInterface[]> => await (await fetch(`${this.BASE_URL}/formations`)).json()
+    loader:async():Promise<FormationInterface[]> => await (await fetch(`${this.BASE_URL}/formations/`)).json()
   })
 
 
@@ -99,7 +99,7 @@ export class ParcoursService {
   
     }
   
-    async deleteEFormation(formationId:string) {
+    async deleteFormation(formationId:string) {
       try {
   
        const response = await fetch(`${this.BASE_URL}/${formationId}`, {

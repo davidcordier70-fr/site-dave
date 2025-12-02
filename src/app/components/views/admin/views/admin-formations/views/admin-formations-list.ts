@@ -7,13 +7,13 @@ import { ParcoursService } from '../../../../../../shared/services/parcours.serv
   selector: 'app-admin-formations-list',
   imports: [RouterLink],
   template: `
-  <h4 class='mb-20'>Liste des experiences</h4>
+  <h4 class='mb-20'>Liste des formations</h4>
   <ul>
-  @for (experience of listExperiences(); track experience._id) {
+  @for (formation of listFormations(); track formation._id) {
     <li class='d-flex flex-row flex-fill mb-10 align-items-center justify-content-center mb-20'>
-      <span class='flex-fill'>{{ experience.titre }}</span>
-      <button class='btn btn-primary mr-20' [routerLink]="['..', experience._id, 'edit']">Editer</button>
-      <button class='btn btn-danger' (click)="deleteExperience(experience._id)">Supprimer</button>
+      <span class='flex-fill'>{{ formation.title }}</span>
+      <button class='btn btn-primary mr-20' [routerLink]="['..', formation._id, 'edit']">Editer</button>
+      <button class='btn btn-danger' (click)="deleteFormation(formation._id)">Supprimer</button>
     </li>
   }
   </ul> 
@@ -41,10 +41,10 @@ import { ParcoursService } from '../../../../../../shared/services/parcours.serv
 })
 export class AdminFormationsList {
   parcoursService = inject(ParcoursService)
-  listExperiences=computed(()=> this.parcoursService.experienceResource.value() || undefined)
+  listFormations=computed(()=> this.parcoursService.FormationResource.value() || undefined)
 
-  deleteExperience(experienceId:string) {
-    this.parcoursService.deleteExperience(experienceId)
+  deleteFormation(formationId:string) {
+    this.parcoursService.deleteFormation(formationId)
   }
 
 
