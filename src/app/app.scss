@@ -167,6 +167,9 @@
 }
 
 .btnlg {
+  @include mixin.xs {
+    display:none;
+  }
   @include mixin.sm {
     display:none;
   }
@@ -185,6 +188,6 @@
 }
 
 .mat-mdc-icon-button {
-  font-size: xx-small;
+  font-size: 15px;
 }
 
