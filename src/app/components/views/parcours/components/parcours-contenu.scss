@@ -1,0 +1,189 @@
+@use './../../../../styles/mixins' as mixin;
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.btn-accordeon {
+  background-color:var(--mat-sys-tertiary);
+  color:white;
+  width:120px;
+  font-size:12px;
+
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+  justify-content:end;
+}
+
+.mat-expansion-panel {
+  //background:rgb(228, 225, 236);
+  //background:var(--gray-100);
+  
+}
+
+.mat-expansion-panel-header-title {
+  font-weight:500;
+}
+
+
+.mat-expansion-indicator svg {
+  fill:white;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+.card {
+  background:white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius:10px;
+
+}
+
+.langue {
+  
+  
+  @include mixin.md {
+    width:700px;
+  }
+  @include mixin.lg {
+    width:450px;
+  }
+  @include mixin.xl {
+    width:450px;
+  }
+}
+
+.coordonnees {
+  @include mixin.xs {
+    flex-direction: column;
+  }
+  @include mixin.sm {
+    flex-direction:column;
+  }
+}
+
+.border {
+  border:1px solid var(--mat-sys-tertiary);
+  
+
+}
+
+.border2 {
+  border:1px solid var(--mat-sys-tertiary);
+   
+  
+  
+}
+
+.titres {
+  color:var(--mat-sys-tertiary);
+}
+
+.imglangue {
+  width:40px;
+}
+
+.textlangue {
+  color:black;
+}
+
+.textlangueita {
+  font-style:italic;
+}
+
+.exp {
+  padding:20px;
+  margin:20px;
+}
+
+.postes {
+  @include mixin.sm {
+    margin-top: 20px;
+  }
+  @include mixin.md {
+    width:230px;
+    padding-left:30px;
+  }
+  @include mixin.lg {
+    width:230px;
+    padding-left:30px;
+  }
+  @include mixin.xl {
+    width:230px;
+    padding-left:30px;
+  }
+  
+  
+}
+
+.mat-mdc-tab {
+  font-size:20px;
+}
+
+.ecole {
+  font-style:italic;
+  font-size:20px;
+  color:var(--mat-sys-tertiary);
+}
+
+a {
+  text-align:left;
+}
+
+.imgxs {
+  
+  @include mixin.md {
+    display:none;
+  }
+  @include mixin.lg {
+    display:none;
+  }
+  @include mixin.xl {
+    display:none;
+  }
+}
+
+.imglg {
+  margin-top:20px;
+  @include mixin.md {
+    display:none;
+  }
+  @include mixin.xs {
+    display:none;
+  }
+  @include mixin.sm {
+    display:none;
+  }
+ 
+}
+
+.contenuexp {
+  @include mixin.xs {
+    flex-direction:column;
+  }
+  @include mixin.sm {
+    flex-direction:column;
+  }
+  
+}
+
+h2 {
+  @include mixin.sm {
+    font-size:16px;
+  }
+}
+
+.champcoor {
+  @include mixin.sm {
+    flex-direction: column;
+  }
+}
+
+.champcolor {
+  font-weight:bold;
+}

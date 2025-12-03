@@ -20,22 +20,25 @@ registerLocaleData(localeFr);
 @Component({
   selector: 'app-contenu-parcours',
   template: `
-  <div class='d-flex gap-12 mb-20'>
+  <div class='d-flex gap-12 coordonnees mb-20'>
     <div class='d-flex flex-column card p-20 langue'>
       <div class='d-flex align-items-center titres mb-5'>
         <i class="fa-solid fa-address-book mr-10"></i>
         <h2>Mes coordonnées</h2>
       </div>
       <span class='border mb-15'></span>
-      <div class='d-flex'>
-        <span>Nom et prénom :</span>
+      <div class='d-flex champcoor mb-10'>
+        <span class='champcolor'>Nom et prénom :</span>
         <span>CORDIER David</span>
       </div>
-      <div class='d-flex'>
-        <span>Tél :</span>
+      <div class='d-flex mb-10'>
+        <span class='champcolor mr-5'>Tél :</span>
         <span>0699330291</span>
       </div>
-      <span class='mb-20'>Email : david.cordier70@gmail.com</span>
+      <div class='d-flex champcoor mb-20'>
+        <span class='champcolor'>Email :</span> 
+        <span>david.cordier70@gmail.com</span>
+      </div>
       <div class='d-flex align-items-center titres mb-5'>
         <i class="fa-solid fa-location-dot mr-10"></i>
         <h2>Adresse </h2>
@@ -64,13 +67,17 @@ registerLocaleData(localeFr);
       </div>
       <span class='border mb-15'></span>
       <div class='d-flex align-items-center titres mb-5'>
-        <img src='./images/england_flag.png' class='imglangue pr-10'/>
-        <span class='textlangue pr-20'>Anglais</span>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
+        <div>
+          <img src='./images/england_flag.png' class='imglangue pr-10'/>
+          <span class='textlangue pr-20'>Anglais</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
         
       </div> 
       <div class='d-flex titres mb-15'>
@@ -95,11 +102,14 @@ registerLocaleData(localeFr);
 
       @for (experience of experiencesList(); track $index) {
         <div class='d-flex flex-column card mb-20 exp'>
-          <div class='d-flex'>
+          <div class='d-flex contenuexp'>
             <div class='d-flex flex-column flex-fill'>
               <h3 class='mb-20'>{{ experience.titre }}</h3>
               <span>{{ experience.lieu }}</span>
               <span class='mb-20'>De {{ experience.montYearDeb |  slice: 0 : 2 }}/{{ experience.montYearDeb |  slice: 2 : 6 }} à {{ experience.montYearFin |  slice: 0 : 2 }}/{{ experience.montYearFin |  slice: 2 : 6 }}</span>
+              <div class='imgxs'>
+                <img class='mb-20 imgexp' [src]="experience.image" />
+              </div>
               <h3 class='titres mb-5'>Missions</h3>
               <span class='border2 mb-10'></span>
               @for(mission of experience.missions; track $index) {
@@ -119,15 +129,16 @@ registerLocaleData(localeFr);
             
             </div>
             <div class='d-flex flex-column postes'>
-              <div>
-              <img class='mb-20 imgexp' [src]="experience.image" />
-            </div>
+              
               <h3 class='titres mb-5'>Postes occupés</h3>
-              <span class='border mb-10'></span>
+              <span class='border2 mb-10'></span>
               
               @for(poste of experience.postes_occupes; track $index) {
                 <span>{{ poste }}</span>
               }
+              <div class='imglg'>
+                <img class='mb-20 imgexp' [src]="experience.image" />
+              </div>
               
             </div>
           </div> 
@@ -170,108 +181,7 @@ registerLocaleData(localeFr);
     
     </mat-tab>
   </mat-tab-group>`,
-  styles: `
-  .example-action-buttons {
-  padding-bottom: 20px;
-}
-
-.btn-accordeon {
-  background-color:var(--mat-sys-tertiary);
-  color:white;
-  width:120px;
-  font-size:12px;
-
-}
-
-.example-headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
-  justify-content:end;
-}
-
-.mat-expansion-panel {
-  //background:rgb(228, 225, 236);
-  //background:var(--gray-100);
-  
-}
-
-.mat-expansion-panel-header-title {
-  font-weight:500;
-}
-
-
-.mat-expansion-indicator svg {
-  fill:white;
-}
-
-.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
-  margin-left: 8px;
-}
-
-.card {
-  background:white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius:10px;
-
-}
-
-.langue {
-  width:450px;
-}
-
-.border {
-  border:1px solid var(--mat-sys-tertiary);
-  
-
-}
-
-.border2 {
-  border:1px solid var(--mat-sys-tertiary);
-  width:700px;
-}
-
-.titres {
-  color:var(--mat-sys-tertiary);
-}
-
-.imglangue {
-  width:40px;
-}
-
-.textlangue {
-  color:black;
-}
-
-.textlangueita {
-  font-style:italic;
-}
-
-.exp {
-  padding:20px;
-  margin:20px;
-}
-
-.postes {
-  width:230px;
-  
-}
-
-.mat-mdc-tab {
-  font-size:20px;
-}
-
-.ecole {
-  font-style:italic;
-  font-size:20px;
-  color:var(--mat-sys-tertiary);
-}
-
-a {
-  text-align:left;
-}
-
-
-`,
+  styleUrl: 'parcours-contenu.scss',
   providers: [provideNativeDateAdapter(), { provide: LOCALE_ID, useValue: 'fr-FR'}],
   imports: [
     MatButtonModule,

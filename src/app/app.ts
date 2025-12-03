@@ -12,6 +12,8 @@ import { AuthService } from './shared/services/auth.service';
 import {MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
+
+
 import {
   MatDialog,
   MatDialogActions,
@@ -69,7 +71,31 @@ interface FoodNode {
     <mat-sidenav-content class='mat-sidenav-content'>
       
       <div class='navbar'>
-      <button matButton (click)="sidenav.toggle()"><i class="fa-solid fa-bars"></i></button>
+      <div class='d-flex'>
+      <button matIconButton [matMenuTriggerFor]="menu" aria-label="Menu général" class='btnmobile'>
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      </div> 
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon><i class="fa-solid fa-house"></i></mat-icon>
+          <span>Accueil</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon><i class="fa-solid fa-book-open"></i></mat-icon>
+          <span>Mes compétences</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon><i class="fa-solid fa-person-running"></i></mat-icon>
+          <span>Mon parcours professionnel</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon><i class="fa-solid fa-lightbulb"></i></mat-icon>
+          <span>Mes réalisations</span>
+        </button>
+      </mat-menu>
+      
+      <button matButton (click)="sidenav.toggle()" class='btnlg'><i class="fa-solid fa-bars" ></i></button>
       <div class='d-flex align-items-center mr-20 flex-fill'>
        <img src="./images/photo.jpg" alt="Photo d'identité">
       </div> 

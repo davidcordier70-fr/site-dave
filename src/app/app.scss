@@ -98,4 +98,93 @@
 
 }
 
+.fa-house {
+  @include mixin.xl {
+    font-size:15px;
+  }
+  @include mixin.sm {
+    font-size: 22px;
+  }
+  @include mixin.md {
+    font-size: 22px;
+  }
+  @include mixin.lg {
+    font-size: 22px;
+  }
+  
+  
+  
+ 
+}
+
+.fa-book-open {
+  @include mixin.sm {
+    font-size: 22px;
+  }
+  @include mixin.md {
+    font-size: 22px;
+  }
+  @include mixin.lg {
+    font-size: 22px;
+  }
+}
+
+.fa-person-running {
+  @include mixin.sm {
+    font-size: 22px;
+  }
+  @include mixin.md {
+    font-size: 22px;
+  }
+  @include mixin.lg {
+    font-size: 22px;
+  }
+}
+
+.fa-lightbulb {
+  @include mixin.sm {
+    font-size: 22px;
+  }
+  @include mixin.md {
+    font-size: 22px;
+  }
+  @include mixin.lg {
+    font-size: 22px;
+  }
+}
+
+.fa-bars {
+  @include mixin.sm {
+    font-size: 15px;
+  }
+  @include mixin.md {
+    font-size: 15px;
+  }
+  @include mixin.lg {
+    font-size: 15px;
+  }
+
+}
+
+.btnlg {
+  @include mixin.sm {
+    display:none;
+  }
+  @include mixin.md {
+    display:none;
+  }
+  @include mixin.lg {
+    display:none;
+  }
+} 
+
+.btnmobile {
+  @include mixin.xl {
+    display:none;
+  }
+}
+
+.mat-mdc-icon-button {
+  font-size: xx-small;
+}
 
