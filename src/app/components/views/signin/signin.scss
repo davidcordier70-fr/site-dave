@@ -1,0 +1,67 @@
+@use './../../../styles/mixins' as mixin;
+
+    .card {
+      border-radius:10px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      background:white;
+      padding:20px;
+    }
+    form label {
+      color:var(--gray-700);
+      font-weight:500;
+    }
+    form input {
+      background:rgb(248, 250, 252);
+      -moz-autofill-background:rgb(248, 250, 252);
+      border:1px solid rgb(226, 232, 240);
+      width:300px;
+      height:40px;
+      &:focus {
+        background:rgb(248, 250, 252);
+      }
+    }
+
+    
+    form h2 {
+      align-items:left;
+    }
+    .error {
+      color: red;
+      font-size: 0.875rem;
+    }
+    .btn-connexion {
+      border-radius:10px;
+      background:rgb(248, 250, 252);
+      padding:10px;
+      border:2px solid rgb(226, 232, 240);
+    }
+
+    .example-h2 {
+        margin: 10px;
+    }
+
+    .example-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction:column;
+        flex:1;
+    }
+
+    .mdc-linear-progress {
+        width:50%;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        flex-direction:column;
+        padding-top:30px;
+    
+    }
+
+    .example-margin {
+        margin: 0 10px;
+    }
+
+    .example-card {
+        margin-bottom: 10px;
+    }

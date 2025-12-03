@@ -1,7 +1,7 @@
 import { Component, computed, inject, model, signal } from '@angular/core';
 import { ParcoursContenu } from "./components/parcours-contenu";
 
-import { ParcoursFilter } from "./components/parcours-filter";
+
 import { ParcoursService } from '../../../shared/services/parcours.service';
 
 @Component({
@@ -27,7 +27,7 @@ import { ParcoursService } from '../../../shared/services/parcours.service';
 })
 export class Parcours {
 
-  
+  selectedparcours = signal<string | null>(null)
   parcoursService = inject(ParcoursService)
   experiencesList = computed(() => this.parcoursService.experienceResource.value())
   formationsList = computed(() => this.parcoursService.FormationResource.value())

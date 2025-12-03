@@ -43,3 +43,4 @@ __screenshots__/
 Thumbs.db
 
 /api/node_modules
+/api/node_modules/*

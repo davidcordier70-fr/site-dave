@@ -16,10 +16,10 @@ import { ProgressBarQueryExample } from "../../sidebar";
       </div>
       <div class='d-flex flex-column align-items-center flex-fill justify-content-center'>
     
-    <form [formGroup]="userForm" (submit)="submit()" class="card d-flex flex-column" autocomplete="off">
+    <form [formGroup]="userForm" (submit)="submit()" class="card d-flex flex-column m-20" autocomplete="off">
       <h2 class="mb-10">Bienvenue !</h2>
       <span class="d-flex flex-column mb-20">Créer votre compte</span>
-      <div class="d-flex flex-column mb-20">
+      <div class="d-flex flex-column mb-10">
         <label for="email" class='mb-10'>Email</label>
         <div class="d-flex mb-10">
           <input formControlName="email" type="text" id="email" autocomplete="off" class='flex-fill'/>
@@ -32,26 +32,31 @@ import { ProgressBarQueryExample } from "../../sidebar";
             }
         </div>
       </div>
-      
-      <div class="d-flex flex-column">
-        <div class="d-flex mb-20">
-          <div class="d-flex flex-column">
+      <div class="d-flex civilnomprenom">
+        <div class="d-flex flex-column mb-10 nom">
             <label for="nom" class='mb-10'>Votre Nom</label>
-            <input formControlName="nom" type="text" id="nom" autocomplete="off" class='mb-10'/>
-              @if (nomControl.errors?.['required'] && (nomControl.touched || formSubmitted())) {
-                <span class="error">Nom d'utilisateur obligatoire</span>
-             } 
-          </div>
-          <div class="d-flex flex-column pl-20">
+            <div class="d-flex">
+              <input formControlName="nom" type="text" id="nom" autocomplete="off" class='mb-10 flex-fill'/>
+            </div>
+            <div class="d-flex flex-column">
+                @if (nomControl.errors?.['required'] && (nomControl.touched || formSubmitted())) {
+                  <span class="error">Nom d'utilisateur obligatoire</span>
+              } 
+            </div>
+        </div> 
+        <div class="d-flex flex-column mb-10 prenom">
             <label for="prenom" class='mb-10'>Votre prénom</label>
-            <input formControlName="prenom" type="text" id="prenom" autocomplete="off" class='mb-10'/>
-            @if (prenomControl.errors?.['required'] && (prenomControl.touched || formSubmitted())) {
-              <span class="error">Prénom d'utilisateur obligatoire</span>
-            }
-          </div>
+            <div class="d-flex">
+              <input formControlName="prenom" type="text" id="prenom" autocomplete="off" class='mb-10 flex-fill'/>
+            </div>
+            <div class="d-flex flex-column"> 
+              @if (prenomControl.errors?.['required'] && (prenomControl.touched || formSubmitted())) {
+                <span class="error">Prénom d'utilisateur obligatoire</span>
+              }
+            </div>
         </div>
       </div>
-      <div class="d-flex flex-column mb-20 ">
+      <div class="d-flex flex-column mb-10 ">
         <label for="password" class='mb-10'>Nom de l'entreprise</label>
         <div class="d-flex mb-10">
           <input formControlName="noment" type="text" id="noment" class='flex-fill' />
@@ -62,7 +67,7 @@ import { ProgressBarQueryExample } from "../../sidebar";
             } 
         </div>
       </div>
-      <div class="d-flex flex-column mb-20 ">
+      <div class="d-flex flex-column mb-10 ">
         <label for="password" class='mb-10'>Mot de passe</label>
         <div class="d-flex mb-10">
           <input formControlName="password" type="password" id="password" class='flex-fill' />
@@ -76,14 +81,14 @@ import { ProgressBarQueryExample } from "../../sidebar";
           
         </div>
       </div>
-      <div class='d-flex align-items-center form-end'>
-          <div class='flex-fill'>
-            <button class="btn btn-primary d-flex">
+      <div class='cardinscription'>
+          <div class='inscription'>
+            <button class="btn btn-primary btn-inscription">
               <span class='pr-10'>S'inscrire</span>
               <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
-          <div class='btn-inscription'>
+          <div class='btn-connexion '>
             <span class='pr-10'>Déjà inscrit ?</span>
             <button class='btn btn-primary' type='button' [routerLink]="'../signin'">Connecter vous à votre compte</button>
           </div>
@@ -101,48 +106,9 @@ import { ProgressBarQueryExample } from "../../sidebar";
       
       
     }
-    .card {
-  
-      border-radius:10px;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      background:white;
-      padding:20px;
-      
-
-
-    }
-    form label {
-      color:var(--gray-700);
-      font-weight:500;
-    }
-    form input {
-      background:rgb(248, 250, 252);
-      -moz-autofill-background:rgb(248, 250, 252);
-      border:1px solid rgb(226, 232, 240);
-      width:300px;
-      height:40px;
-    }
-    form h2 {
-      align-items:left;
-    }
-    .input2 {
-      width:100%;
-    }
-    .form-end button span {
-      color:white;
-      font-weight:500;
-    }
-    .btn-inscription {
-      border-radius:10px;
-      background:rgb(248, 250, 252);
-      padding:10px;
-      border:2px solid rgb(226, 232, 240);
-    }
-    .error {
-      color: red;
-      font-size: 0.875rem;
-    }
+    
   `,
+  styleUrl: 'signup.scss'
 })
 export class Signup {
   readonly fb = inject(FormBuilder);

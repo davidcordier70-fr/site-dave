@@ -3,9 +3,10 @@
 .competences-container {
       display: grid;
       place-content: center;
-      grid-template-columns: repeat(5, 200px);
-      grid-auto-columns: repeat(5, 200px);
-      gap: 20px;
+      grid-template-columns: repeat(6, 190px);
+      grid-auto-columns: repeat(6, 190px);
+      gap: 15px;
+      margin: 20px;
       
   @include mixin.sm-lt {
     grid-template-columns: repeat(3, 200px);
@@ -31,7 +32,7 @@
     box-shadow: black 0px 4px 8px;
     display:flex;
     align-items:center;
-    width:200px;
+    width:190px;
     justify-content:space-evenly;
     flex-direction:column;
     gap:12px;
@@ -41,7 +42,7 @@
     }
     cursor:pointer;
     @include mixin.xs {
-    width:400px;
+    width:340px;
    
   }
    
@@ -102,4 +103,8 @@
 
   .mat-divider {
     border-top-width:3px;
+  }
+
+  .titre_accueil {
+    color:#74b9ff;
   }
