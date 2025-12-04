@@ -146,6 +146,12 @@ export class Signin {
       setTimeout(() => {
         this.deconnexion.set(0)
       },4000)
+    } else {
+      const currentUser = this.authService.currentUserResource.value();
+      console.log(currentUser)
+      if (currentUser !== null) {
+        this.router.navigateByUrl('/')
+      }
     }
 
   }

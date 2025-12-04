@@ -46,11 +46,11 @@ interface FoodNode {
         <i class="fa-solid fa-book-open"></i>
         <span>Mes compétences</span>
       </a>
-      <a class='d-flex flex-row menu' routerLink="">
+      <a class='d-flex flex-row menu' routerLink="parcours">
         <i class="fa-solid fa-person-running"></i>
         <span>Mon parcours professionnel</span>
       </a>
-      <a class='d-flex flex-row menu' routerLink="">
+      <a class='d-flex flex-row menu' routerLink="realisations">
         <i class="fa-solid fa-lightbulb"></i>
         <span>Mes réalisations</span>
       </a>
@@ -77,19 +77,19 @@ interface FoodNode {
       </button>
       </div> 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="">
           <mat-icon><i class="fa-solid fa-house"></i></mat-icon>
           <span>Accueil</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="reloadComponent('categorys')">
           <mat-icon><i class="fa-solid fa-book-open"></i></mat-icon>
           <span>Mes compétences</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="parcours">
           <mat-icon><i class="fa-solid fa-person-running"></i></mat-icon>
           <span>Mon parcours professionnel</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="realisations">
           <mat-icon><i class="fa-solid fa-lightbulb"></i></mat-icon>
           <span>Mes réalisations</span>
         </button>
@@ -123,23 +123,37 @@ interface FoodNode {
         </mat-menu>
         
       } @else { 
-      <li   class='pr-10 mr-20'>
+      @if (currentUser()) {
+        @if (currentUser().email === 'nathalie.cordier0585@orange.fr') {
+      <li   class='pr-10'>
         <button class='btn btn-primary' routerLink="admin">Admin</button>
+      </li>
+        }
+      }
+      <li class='d-flex flex-column justify-content-center pr-10'>
         
-        </li>
-      <li   class='pr-10 mr-20'>
-        
-        <button class='btn btn-primary' routerLink="signin">
-          <i class="fa-regular fa-user"></i>
+        <button class='btn btn-primary btncoweb' routerLink="signin">
+          <i class="fa-regular fa-user pr-10"></i>
           Connexion
-        </button></li>
+        </button>
+        <button class='btn  btncomobile' routerLink="signin">
+          <span>Connexion > </span>
+          <i class="fa-regular fa-user pr-10"></i>
+        </button>
+      </li>
       
-      <li >
+      <li class='d-flex flex-column justify-content-center pr-10'>
         
-        <button class='btn btn-primary' routerLink="signup">
-          <i class="fa-solid fa-user-plus"></i>
+        <button class='btn btn-primary btninweb' routerLink="signup">
+          <i class="fa-solid fa-user-plus pr-10"></i>
           Inscription
-      </button>
+        </button>
+        
+            <button class='btn btninmobile' routerLink="signup">
+              <span>Inscription > </span>
+              <i class="fa-regular fa-user pr-10"></i>
+            </button>
+          
       </li>
       }
         

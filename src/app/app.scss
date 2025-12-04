@@ -1,4 +1,5 @@
 @use './styles/mixins' as mixin;
+@use "sass:color";
     :host {
       display:flex;
       flex:row;
@@ -189,5 +190,61 @@
 
 .mat-mdc-icon-button {
   font-size: 15px;
+}
+
+.btncoweb {
+
+  @include mixin.xs {
+    display:none;
+  }
+}
+
+.btncomobile {
+  border:none;
+  font-weight:normal;
+  background-color:var(--mat-sys-tertiary);
+  color:white;
+  @include mixin.sm {
+    display:none;
+  }
+  @include mixin.md {
+    display:none;
+  }
+  @include mixin.lg {
+    display:none;
+  }
+  @include mixin.xl {
+    display:none;
+  }
+  
+}
+
+.btninweb {
+
+  @include mixin.xs {
+    display:none;
+  }
+  
+}
+
+.btninmobile {
+  border:none;
+  font-weight:normal;
+  background-color:var(--mat-sys-tertiary);
+  color:white;
+  @include mixin.sm {
+    display:none;
+  }
+  @include mixin.md {
+    display:none;
+  }
+  @include mixin.lg {
+    display:none;
+  }
+  @include mixin.xl {
+    display:none;
+  }
+  
+  
 }
 

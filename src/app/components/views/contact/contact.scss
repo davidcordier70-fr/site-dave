@@ -1,0 +1,49 @@
+@use './../../../styles/mixins' as mixin;
+
+    .card {
+      border-radius:10px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      background:white;
+      padding:20px;
+    }
+    form label {
+      color:var(--gray-700);
+      font-weight:500;
+    }
+    form input {
+      background:rgb(248, 250, 252);
+      -moz-autofill-background:rgb(248, 250, 252);
+      border:1px solid rgb(226, 232, 240);
+      //width:300px;
+      height:40px;
+    }
+    form h2 {
+      align-items:left;
+    }
+    .input2 {
+      width:100%;
+    }
+    form {
+      @include mixin.sm {
+        margin:20px;
+      }
+      @include mixin.xs {
+        margin:20px;
+      }
+     
+    }
+
+    .form-end button span {
+      color:white;
+      font-weight:500;
+    }
+    .btn-inscription {
+      border-radius:10px;
+      background:rgb(248, 250, 252);
+      padding:10px;
+      border:2px solid rgb(226, 232, 240);
+    }
+    .error {
+      color: red;
+      font-size: 0.875rem;
+    }

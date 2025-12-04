@@ -211,3 +211,72 @@ exports.main = async (email) => {
 
 
 }
+
+exports.messageContact = async (email, nom, prenom, noment, titre, message) => {
+  const data = await sparkPostTransporter.sendMail({
+      from: 'no-reply@dave-it.fr',
+      to: email,
+      subject: 'Message de '+nom+' '+prenom,
+       html: `<!DOCTYPE html>
+              <html>
+              <head>
+                <style>
+                    .btn {
+                        border-radius:10px;
+                        font-weight:bold;
+                        border:2px solid #e9d5ff;
+                        padding:10px;
+                        font-family: "Montserrat", sans-serif;
+                        cursor:pointer;
+                    
+                    } 
+                    .btn-primary {
+                        background-color:rgb(0, 92, 187);
+                        color:white;
+                        font-weight:bold;
+                        cursor:pointer;
+                    } 
+                    .btn-primary a {
+                        color:white;
+                        font-weight:bold;
+                        cursor:pointer;
+                        text-decoration:none;
+                    }
+                    .btn-primary:hover {
+                        color:white;
+                        background:black;
+                        font-weight:400;
+                        font-family: "Montserrat", sans-serif;
+                        font-weight:bold;
+                        cursor:pointer;
+                    }
+                    .mb-20 {
+                        margin-bottom:20px;
+                    }
+                    .mb-10 {
+                        margin-bottom:10px;
+                    }
+                    .mb-5 {
+                        margin-bottom:5px;
+                    }
+                    .signature {
+                        font-weight:bold;
+                    }
+                    span {
+                        display:block;
+                    }
+                </style>
+               </head> 
+               <body>  
+                    <h1>Message de `+nom+' '+prenom+' '+noment+`</h1>
+                    <p class='mb-20'>Titre :`+titre+`</p>
+                    <p class='mb-20'>Message :`+message+`
+               </body>   
+               </html>
+            `
+    })
+    return data
+
+
+
+}

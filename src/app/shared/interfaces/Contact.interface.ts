@@ -5,6 +5,7 @@ _id:string,
  prenom: string,
  titre: string,
  message:string,
+ email:string
 }
 
 export interface ContactInterfaceForm {
@@ -13,5 +14,6 @@ export interface ContactInterfaceForm {
  prenom: string,
  titre: string,
  message:string,
+ email:string
 }
 

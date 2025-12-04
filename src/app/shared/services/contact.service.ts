@@ -11,7 +11,7 @@ export class MessageService {
   
 
   async createMessage(message: ContactInterfaceForm): Promise<ContactInterface> {
-      const response = await fetch(BASE_URL, {
+      const response = await fetch(`${BASE_URL}/`, {
         method: 'POST',
         body: JSON.stringify(message),
         headers: {

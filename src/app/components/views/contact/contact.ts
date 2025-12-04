@@ -18,14 +18,14 @@ import { AuthService } from '../../../shared/services/auth.service';
       
       <div class="d-flex flex-column">
         <div class="d-flex mb-20">
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column flex-fill">
             <label for="nom" class='mb-10'>Votre Nom</label>
             <input formControlName="nom" type="text" id="nom" autocomplete="off" class='mb-10'/>
               @if (nomControl.errors?.['required'] && (nomControl.touched || formSubmitted())) {
                 <span class="error">Nom d'utilisateur obligatoire</span>
              } 
           </div>
-          <div class="d-flex flex-column pl-20">
+          <div class="d-flex flex-column pl-20 flex-fill">
             <label for="prenom" class='mb-10'>Votre prénom</label>
             <input formControlName="prenom" type="text" id="prenom" autocomplete="off" class='mb-10'/>
             @if (prenomControl.errors?.['required'] && (prenomControl.touched || formSubmitted())) {
@@ -98,48 +98,9 @@ import { AuthService } from '../../../shared/services/auth.service';
       
       
     }
-    .card {
-  
-      border-radius:10px;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      background:white;
-      padding:20px;
-      
-
-
-    }
-    form label {
-      color:var(--gray-700);
-      font-weight:500;
-    }
-    form input {
-      background:rgb(248, 250, 252);
-      -moz-autofill-background:rgb(248, 250, 252);
-      border:1px solid rgb(226, 232, 240);
-      width:300px;
-      height:40px;
-    }
-    form h2 {
-      align-items:left;
-    }
-    .input2 {
-      width:100%;
-    }
-    .form-end button span {
-      color:white;
-      font-weight:500;
-    }
-    .btn-inscription {
-      border-radius:10px;
-      background:rgb(248, 250, 252);
-      padding:10px;
-      border:2px solid rgb(226, 232, 240);
-    }
-    .error {
-      color: red;
-      font-size: 0.875rem;
-    }
+    
   `,
+   styleUrl:'contact.scss'
 })
 export class Contact {
   readonly fb = inject(FormBuilder);
@@ -154,6 +115,7 @@ export class Contact {
     prenom: [{value:'',disabled:true}, [Validators.required, Validators.minLength(2)]],
     titre: ['',  [Validators.required, Validators.minLength(2)]],
     message: ['', [Validators.required, Validators.minLength(30)]],
+    email: [{value:'',disabled:true}],
   });
 
   formSubmitted = signal(false);
@@ -179,12 +141,16 @@ export class Contact {
     return this.contactForm.get('prenom') as FormControl;
   }
 
+  get mailControl() {
+    return this.contactForm.get('email') as FormControl;
+  }
+
   
   initCocktailFormEffect = effect(() => {
     if (this.isLoggedin()) {
       this.nomControl.setValue(this.currentUser().nom)
       this.prenomControl.setValue(this.currentUser().prenom)
-      this.nomentControl.setValue(this.currentUser().noment)
+      this.mailControl.setValue(this.currentUser().email)
     }
   })
   

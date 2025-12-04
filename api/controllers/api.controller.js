@@ -1,4 +1,4 @@
-const { getCategorys,  createCategory, getCompetences, getExperiences, getFormations, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation, updatePassword } = require('../queries/api.queries')
+const { getCategorys,  createCategory, getCompetences, getExperiences, getFormations, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation, updatePassword, messageContact } = require('../queries/api.queries')
 const jsonwebtoken = require('jsonwebtoken');
 const { key, keyPub } =  require('./../keys/index')
 const bcrypt = require('bcrypt');
@@ -123,8 +123,7 @@ exports.userUpdate = async (req, res) => {
 exports.passwordUpdate = async (req, res) => {
     const userId =req.params.id
     try {
-        console.log(userId)
-        console.log("body :"+req.body)
+        
         //const tweet = await getTweet(tweetId)
         const newUser = await updatePassword(userId, req.body) 
         res.status(200).json(req.body)
@@ -155,9 +154,19 @@ exports.currentUser = async (req, res) => {
 };
 
 exports.createMessage = async (req, res) => {
-  const message = await createMessage(req.body)
+  const { email, nom, prenom, noment, titre, message } = req.body
+  console.log(req.body)
+  if (email !== undefined) {
+       try {
+          console.log(email, nom, prenom, noment, titre, message)
+          data = await messageContact(email, nom, prenom, noment, titre, message)
+       } catch (e) {
+          console.log(e)
+       }   
+  }
+  const messageSoumis = await createMessage(req.body)
   
-  res.json(message)
+  res.json(messageSoumis)
 };
 
 exports.createExperience = async (req, res) => {
@@ -190,7 +199,6 @@ exports.authUser = async (req, res) => {
         if (authUser) {
             console.log('coucou2')
             if (bcrypt.compareSync(password, authUser.password)) {
-                console.log('coucou')
                 const token = jsonwebtoken.sign({}, key, {
                 subject: authUser._id.toString(),
                 expiresIn: 3600 * 24 * 30 * 6,
