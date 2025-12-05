@@ -17,15 +17,15 @@ import { AuthService } from '../../../shared/services/auth.service';
       
       
       <div class="d-flex flex-column">
-        <div class="d-flex mb-20">
-          <div class="d-flex flex-column flex-fill">
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-column flex-fill mb-10">
             <label for="nom" class='mb-10'>Votre Nom</label>
             <input formControlName="nom" type="text" id="nom" autocomplete="off" class='mb-10'/>
               @if (nomControl.errors?.['required'] && (nomControl.touched || formSubmitted())) {
                 <span class="error">Nom d'utilisateur obligatoire</span>
              } 
           </div>
-          <div class="d-flex flex-column pl-20 flex-fill">
+          <div class="d-flex flex-column flex-fill mb-10">
             <label for="prenom" class='mb-10'>Votre prénom</label>
             <input formControlName="prenom" type="text" id="prenom" autocomplete="off" class='mb-10'/>
             @if (prenomControl.errors?.['required'] && (prenomControl.touched || formSubmitted())) {
@@ -34,7 +34,7 @@ import { AuthService } from '../../../shared/services/auth.service';
           </div>
         </div>
       </div>
-      <div class="d-flex flex-column mb-20">
+      <div class="d-flex flex-column mb-10">
         <label for="noment" class='mb-10'>Votre entreprise</label>
         <div class="d-flex mb-10">
           <input formControlName="noment" type="text" id="noment" autocomplete="off" class='flex-fill' />
@@ -45,7 +45,7 @@ import { AuthService } from '../../../shared/services/auth.service';
             } 
         </div>
       </div>
-      <div class="d-flex flex-column mb-20 ">
+      <div class="d-flex flex-column mb-10 ">
         <label for="titre" class='mb-10'>Titre du message</label>
         <div class="d-flex mb-10">
           <input formControlName="titre" type="text" id="titre" class='flex-fill' />
@@ -58,7 +58,7 @@ import { AuthService } from '../../../shared/services/auth.service';
             }
         </div>
       </div>
-      <div class="d-flex flex-column mb-20 ">
+      <div class="d-flex flex-column mb-10 ">
         <label for="password" class='mb-10'>Message</label>
         <div class="d-flex mb-10">
           <textarea
