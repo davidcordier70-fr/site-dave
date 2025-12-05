@@ -76,23 +76,29 @@ interface FoodNode {
         <i class="fa-solid fa-bars"></i>
       </button>
       </div> 
-      <mat-menu #menu="matMenu" class="customize">
+      <mat-menu #menu="matMenu" class="customize2">
         <button mat-menu-item routerLink="">
-          <mat-icon><i class="fa-solid fa-house"></i></mat-icon>
+          <i class="fa-solid fa-house"></i>
           <span>Accueil</span>
         </button>
         <button mat-menu-item (click)="reloadComponent('categorys')">
-          <mat-icon><i class="fa-solid fa-book-open"></i></mat-icon>
+          <i class="fa-solid fa-book-open"></i>
           <span>Mes compétences</span>
         </button>
         <button mat-menu-item routerLink="parcours">
-          <mat-icon><i class="fa-solid fa-person-running"></i></mat-icon>
+          <i class="fa-solid fa-person-running"></i>
           <span>Mon parcours professionnel</span>
         </button>
         <button mat-menu-item routerLink="realisations">
-          <mat-icon><i class="fa-solid fa-lightbulb"></i></mat-icon>
+          <i class="fa-solid fa-lightbulb"></i>
           <span>Mes réalisations</span>
         </button>
+        @if (isLoggedin()) {
+          <button mat-menu-item routerLink="contact">
+            <i class="fa-solid fa-address-book"></i>
+            <span>Me contacter</span>
+          </button>
+        } 
       </mat-menu>
       
       <button matButton (click)="sidenav.toggle()" class='btnlg'><i class="fa-solid fa-bars" ></i></button>

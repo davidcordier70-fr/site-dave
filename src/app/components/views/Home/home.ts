@@ -23,18 +23,18 @@ import { AuthService } from '../../../shared/services/auth.service';
         }
         <span class='mb-10'>David Cordier Développeur Full Stack</span>
         <span class='p1 mb-20'>Disposant d'une expérience de plus de 27 ans dans le développement informatique, je suis à l'écoute d'une nouvelle opportunité de carrière</span>
-        <div class='d-flex'>
-          <button class='btn btn-primary mb-20 mr-20' routerLink="parcours">Accéder à mon parcours professionnel</button>
+        <div class='d-flex btnpres'>
+          <button class='btn btn-primary mb-20 btnpresparc' routerLink="parcours">Accéder à mon parcours professionnel</button>
           <button class='btn btn-primary mb-20' routerLink="realisations">Mes réalisations</button>
         </div>
         <mat-divider class='mb-20'></mat-divider>
         @if (isLoggedin()) {
-          <div class='d-flex align-items-center mt-20'>
+          <div class='d-flex mt-20 btnechange'>
             <p class='mr-10'>Si vous souhaitez échanger sur mon parcours professionnel, vous pouvez me contacter via le lien suivant</p>
             <button class='btn btn-primary' routerLink="contact">Me Contacter</button>
           </div>
         } @else {
-          <div class='d-flex align-items-center mt-20'>
+          <div class='d-flex mt-20 btnechange'>
             <p class='mr-10'>Si vous souhaitez échanger sur mon parcours professionnel, vous pouvez créer votre compte via le lien suivant</p>
             <button class='btn btn-primary' routerLink="signin">Créer un compte</button>
           </div>

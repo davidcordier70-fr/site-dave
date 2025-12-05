@@ -123,76 +123,10 @@ import { MatDialog } from '@angular/material/dialog';
       
       
     }
-    .card {
-  
-      border-radius:10px;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      background:white;
-      padding:20px;
-      
-
-
-    }
-    form label {
-      color:var(--gray-700);
-      font-weight:500;
-    }
-    form input {
-      background:rgb(248, 250, 252);
-      -moz-autofill-background:rgb(248, 250, 252);
-      border:1px solid rgb(226, 232, 240);
-      width:300px;
-      height:40px;
-    }
-    form h2 {
-      align-items:left;
-    }
-    .input2 {
-      width:100%;
-    }
-    .form-end button span {
-      color:white;
-      font-weight:500;
-    }
-    .btn-inscription {
-      border-radius:10px;
-      background:rgb(248, 250, 252);
-      padding:10px;
-      border:2px solid rgb(226, 232, 240);
-    }
-    .error {
-      color: red;
-      font-size: 0.875rem;
-    }
-
-    .fade-in {
-      animation: fadeIn 300ms ease-in forwards;
-    }
-
-    .fade-out {
-      animation: fadeOut 300ms ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to   { opacity: 0; }
-    }
-
-    .message-success {
-      background:var(--gray-700);
-      color:white;
-      padding:20px;
-      z-index:1;
-      position:absolute;
-      bottom:40px;
-      right:30px;
-    }
-  `
+    
+    
+  `,
+  styleUrl:'profil.scss'
 
 })
 export class Profil {

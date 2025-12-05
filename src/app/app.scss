@@ -75,16 +75,35 @@
 
 ::ng-deep .customize {
   padding:15px 10px 10px 10px;
+  background-color:var(--gray-700);
+  margin:20px;
 }
 
-::ng-deep .customize button:hover {
+/*::ng-deep .customize button:hover {
   
   color:white;
   
+}*/
+
+::ng-deep .customize2 {
+  padding:15px 10px 10px 10px;
+  margin:20px;
 }
 
-.mat-mdc-menu-item:not([disabled]):hover {
+/*::ng-deep .customize2 button:hover {
+  
+  color:white;
+  
+}*/
+
+::ng-deep .customize .mat-mdc-menu-item:not([disabled]):hover {
   background-color:var(--gray-700);
+  color:white;
+}
+
+::ng-deep .customize2 .mat-mdc-menu-item:not([disabled]):hover {
+  background-color:var(--gray-700);
+  color:white;
 }
 
 
@@ -100,17 +119,24 @@
 }
 
 .fa-house {
+  @include mixin.xs {
+    font-size:15px;
+    padding-right:10px;
+  }
   @include mixin.xl {
     font-size:15px;
   }
   @include mixin.sm {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.md {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.lg {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   
   
@@ -119,38 +145,78 @@
 }
 
 .fa-book-open {
+   @include mixin.xs {
+    font-size:15px;
+    padding-right:10px;
+  }
   @include mixin.sm {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.md {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.lg {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
 }
 
 .fa-person-running {
+  @include mixin.xs {
+    font-size:15px;
+    padding-right:10px;
+  }
   @include mixin.sm {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.md {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.lg {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
 }
 
 .fa-lightbulb {
+  @include mixin.xs {
+    font-size:15px;
+    padding-right:10px;
+  }
   @include mixin.sm {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.md {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
   }
   @include mixin.lg {
-    font-size: 22px;
+    font-size:15px;
+    padding-right:10px;
+  }
+}
+
+.fa-address-book {
+  @include mixin.xs {
+    font-size:15px;
+    padding-right:10px;
+  }
+  @include mixin.sm {
+    font-size:15px;
+    padding-right:10px;
+  }
+  @include mixin.md {
+    font-size:15px;
+    padding-right:10px;
+  }
+  @include mixin.lg {
+    font-size:15px;
+    padding-right:10px;
   }
 }
 

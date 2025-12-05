@@ -108,3 +108,43 @@
   .titre_accueil {
     color:#74b9ff;
   }
+
+  .btnpres {
+    @include mixin.xs {
+      flex-direction: column;
+    }
+    
+  }
+
+  .btnpresparc {
+    @include mixin.xl {
+      margin-right:20px;
+    }
+    @include mixin.sm {
+      margin-right:20px;
+    }
+    @include mixin.md {
+      margin-right:20px;
+    }
+    @include mixin.lg {
+      margin-right:20px;
+    }
+  }
+
+  .btnechange {
+    @include mixin.xs {
+      flex-direction: column;
+    }
+    @include mixin.xl {
+      align-items: center;
+    }
+    @include mixin.sm {
+      align-items: center;
+    }
+    @include mixin.md {
+      align-items: center;
+    }
+    @include mixin.lg {
+      align-items: center;
+    }
+  }
