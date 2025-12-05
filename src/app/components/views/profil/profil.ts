@@ -25,7 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
       <h2 class="mb-10">Votre profil</h2>
       
       <div class="d-flex flex-column">
-        <div class="d-flex mb-20">
+        <div class="d-flex mb-20 flex-column">
           <div class="d-flex flex-column">
             <label for="nom" class='mb-10'>Votre Nom</label>
             <input formControlName="nom" type="text" id="nom" autocomplete="off" class='mb-10'/>
@@ -33,7 +33,7 @@ import { MatDialog } from '@angular/material/dialog';
                 <span class="error">Nom d'utilisateur obligatoire</span>
              } 
           </div>
-          <div class="d-flex flex-column pl-20">
+          <div class="d-flex flex-column">
             <label for="prenom" class='mb-10'>Votre prénom</label>
             <input formControlName="prenom" type="text" id="prenom" autocomplete="off" class='mb-10'/>
             @if (prenomControl.errors?.['required'] && (prenomControl.touched || formSubmitted())) {
@@ -79,7 +79,7 @@ import { MatDialog } from '@angular/material/dialog';
       <h2 class="mb-10">Sécurité</h2>
            
       <div class="d-flex flex-column">
-        <div class="d-flex mb-20">
+        <div class="d-flex mb-20 flex-column">
           <div class="d-flex flex-column">
             <label for="passwd" class='mb-10'>Nouveau mot de passe *</label>
             <input formControlName="passwd" type="password" id="passwd" autocomplete="off" class='mb-10'/>
@@ -87,7 +87,7 @@ import { MatDialog } from '@angular/material/dialog';
                 <span class="error">Mot de passe obligatoire</span>
              } 
           </div>
-          <div class="d-flex flex-column pl-20">
+          <div class="d-flex flex-column">
             <label for="confpasswd" class='mb-10'>Confirmation *</label>
             <input formControlName="confpasswd" type="password" id="confpasswd" autocomplete="off" class='mb-10'/>
             @if (confpasswdControl.errors?.['required'] && (confpasswdControl.touched || formSecuSubmitted())) {
