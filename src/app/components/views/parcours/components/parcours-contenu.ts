@@ -155,26 +155,23 @@ registerLocaleData(localeFr);
       </ng-template>
       @for (formation of formationsList(); track $index) {
         <div class='d-flex flex-column card mb-20 exp'>
-          <div class='d-flex'>
-            <div class='d-flex flex-column flex-fill'>
-              <h2 class='mb-5'>{{ formation.title }}</h2>
-              <span class='border2 mb-10'></span>
-              <span>De {{ formation.montYearDeb |  slice: 0 : 2 }}/{{ formation.montYearDeb |  slice: 2 : 6 }} à {{ formation.montYearFin |  slice: 0 : 2 }}/{{ formation.montYearFin |  slice: 2 : 6 }}</span>
-             
-            </div> 
-            <div class='d-flex flex-column'>
-               @if (formation.ecole === '') {
-                <h2 class='mb-20 ecole'>{{ formation.plateforme }}</h2>
+          <div class='d-flex titleeco'>
+            <h2 class='flex-fill titreform'>{{ formation.title }}</h2>
+             @if (formation.ecole === '') {
+                <h2 class='ecole'>{{ formation.plateforme }}</h2>
               } @else {
-                <h2 class='mb-20 ecole'>{{ formation.ecole }}</h2>
+                <h2 class='ecole'>{{ formation.ecole }}</h2>
               }
-            </div> 
-            
-            
-            
-          </div> 
-          
+          </div>
+          <div class='d-flex'>
+              <span class='border2 mb-10 flex-fill'></span>
+          </div>
+          <div class='d-flex'>
+              <span>De {{ formation.montYearDeb |  slice: 0 : 2 }}/{{ formation.montYearDeb |  slice: 2 : 6 }} à {{ formation.montYearFin |  slice: 0 : 2 }}/{{ formation.montYearFin |  slice: 2 : 6 }}</span>
+          </div>   
         </div> 
+          
+        
       
       
       }  

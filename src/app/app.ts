@@ -76,7 +76,7 @@ interface FoodNode {
         <i class="fa-solid fa-bars"></i>
       </button>
       </div> 
-      <mat-menu #menu="matMenu">
+      <mat-menu #menu="matMenu" class="customize">
         <button mat-menu-item routerLink="">
           <mat-icon><i class="fa-solid fa-house"></i></mat-icon>
           <span>Accueil</span>

@@ -129,6 +129,9 @@
   font-style:italic;
   font-size:20px;
   color:var(--mat-sys-tertiary);
+  @include mixin.xs {
+    margin-bottom:10px;
+  }
 }
 
 a {
@@ -186,4 +189,42 @@ h2 {
 
 .champcolor {
   font-weight:bold;
+}
+
+.titleeco {
+  @include mixin.xs {
+    flex-direction:column;
+  }
+}
+
+.titreform {
+  @include mixin.xs {
+    margin-bottom:10px;
+  }
+  @include mixin.sm {
+    margin-bottom:5px;
+  }
+  @include mixin.md {
+    margin-bottom:5px;
+  }
+  @include mixin.lg {
+    margin-bottom:5px;
+  }
+  @include mixin.xl {
+    margin-bottom:5px;
+  }
+}
+
+.mat-mdc-menu-item:not([disabled]):hover {
+  background-color:var(--gray-700);
+}
+
+::ng-deep .customize {
+  padding:15px 10px 10px 10px;
+}
+
+::ng-deep .customize button:hover {
+  
+  color:white;
+  
 }
