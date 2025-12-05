@@ -17,6 +17,7 @@
       }
       @include mixin.xs {
         margin:20px;
+        width:360px;
       }
       @include mixin.md {
         width:600px;
