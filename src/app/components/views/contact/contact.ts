@@ -1,16 +1,30 @@
 import { Component, computed, effect, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
-import { UserService } from './../../../shared/services/user.service';
 import { ContactInterfaceForm, UserForm } from '../../../shared/interfaces';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MessageService } from '../../../shared/services/contact.service';
 import { AuthService } from '../../../shared/services/auth.service';
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatProgressSpinnerModule],
   template: `
+     @if (show()) {
+        <div animate.enter="fade-in" animate.leave="fade-out" class="message-success">
+          Votre message a bien été envoyé
+        </div>
+    } 
+     @if (load()) {
+    <mat-progress-spinner
+        class="example-margin mb-20"
+        [mode]="mode"
+        >
+    </mat-progress-spinner>
+    <span>Sauvegarde des données en cours...</span>
+     } @else {
+
     <form [formGroup]="contactForm" (submit)="submit()" class="card" autocomplete="off">
       <h2 class="mb-10">Bienvenue !</h2>
       <span class="d-flex flex-column mb-20">Vous pouvez me contacter en cas d'opportunité de carrière ou tout simplement si vous souhaitez échanger sur mon parcours professionnel</span>
@@ -51,7 +65,7 @@ import { AuthService } from '../../../shared/services/auth.service';
           <input formControlName="titre" type="text" id="titre" class='flex-fill' />
         </div>
         <div class="d-flex flex-column">
-            @if (titreControl.errors?.['required'] && (titreControl.touched || formSubmitted())) {
+            @if ((titreControl.errors?.['required']) && (titreControl.touched || formSubmitted())) {
               <span class="error">Titre obligatoire</span>
             } @else if (titreControl.errors?.['minlength'] && (titreControl.touched || formSubmitted())) {
               <span class="error">Le titre doit être de 2 caractères minimum</span>
@@ -79,13 +93,14 @@ import { AuthService } from '../../../shared/services/auth.service';
       </div>
       <div>
         <button
-          [disabled]="contactForm.invalid"
+          [disabled]="contactForm.invalid || this.formSubmitted()"
           class="btn btn-primary"
         >
           Envoyer
         </button>
       </div>
     </form>
+    }
   `,
   styles: `
     :host {
@@ -108,6 +123,9 @@ export class Contact {
   readonly authService = inject(AuthService);
   isLoggedin = this.authService.isLoggedin;
   currentUser=computed(() => this.authService.currentUserResource.value());
+  load = signal(false)
+  show = signal(false)
+  mode: ProgressSpinnerMode = 'indeterminate';
 
   contactForm = this.fb.group({
     noment: [{value:'',disabled:true}],
@@ -156,16 +174,35 @@ export class Contact {
   
 
   async submit() {
-    console.log(this.contactForm.get('username')?.errors);
-    console.log(this.prenomControl.errors)
-    this.formSubmitted.set(true);
+    
     if (this.contactForm.valid) {
       
-      
       const contactForm = this.contactForm.getRawValue() as ContactInterfaceForm;
+      
+      
+      
+      
+      
       try {
+        
+        this.formSubmitted.set(false);      
+        await this.load.update((a) => !a)
         const contact = await this.contactService.createMessage(contactForm);
-        this.router.navigateByUrl('/signin');
+        this.titreControl.reset();
+        this.messageControl.reset();
+        
+              
+        await this.load.update((a) => !a)
+        
+        
+        if (this.load() === false) {
+            await this.show.update((a) => !a)
+            setTimeout(async () => {
+              await this.show.update((a) => !a)
+            }, 3000)
+        }
+        
+        //this.router.navigateByUrl('/signin');
       } catch (e: any) {
         console.log(e);
         

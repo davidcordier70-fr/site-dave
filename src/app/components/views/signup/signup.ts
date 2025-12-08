@@ -1,22 +1,43 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
 import { UserService } from './../../../shared/services/user.service';
 import { UserForm } from '../../../shared/interfaces';
 import { Router, RouterLink } from '@angular/router';
 import { ProgressBarQueryExample } from "../../sidebar";
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample],
+  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample,MatProgressSpinnerModule],
   template: `
+
+    
     <div class='d-flex flex-fill flex-column'>
       <div>
         <progress-bar-query-example />
       </div>
+       
       <div class='d-flex flex-column align-items-center flex-fill justify-content-center'>
-    
+     
+    @if (loading()) {
+      <mat-progress-spinner
+              class="example-margin mb-20"
+              [mode]="mode"
+          >
+      </mat-progress-spinner>
+    } @else {
     <form [formGroup]="userForm" (submit)="submit()" class="card d-flex flex-column m-20" autocomplete="off">
+      @if (load()) {
+        <div class='d-flex flex-fill flex-column align-items-center'>
+          <mat-progress-spinner
+              class="example-margin mb-20"
+              [mode]="mode"
+          >
+          </mat-progress-spinner>
+          <span class='mb-20'>Création du compte en cours ...</span>
+        </div>
+      }
       <h2 class="mb-10">Bienvenue !</h2>
       <span class="d-flex flex-column mb-20">Créer votre compte</span>
       <div class="d-flex flex-column mb-10">
@@ -83,7 +104,9 @@ import { ProgressBarQueryExample } from "../../sidebar";
       </div>
       <div class='cardinscription'>
           <div class='inscription'>
-            <button class="btn btn-primary btn-inscription">
+            
+            <button  [disabled]="userForm.invalid || formSubmitted()" class="btn btn-primary btn-inscription ">
+             
               <span class='pr-10'>S'inscrire</span>
               <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -94,8 +117,10 @@ import { ProgressBarQueryExample } from "../../sidebar";
           </div>
       </div>
     </form>
+          }
     </div>
     </div>
+    
   `,
   styles: `
     :host {
@@ -110,9 +135,12 @@ import { ProgressBarQueryExample } from "../../sidebar";
   `,
   styleUrl: 'signup.scss'
 })
-export class Signup {
+export class Signup implements OnInit{
   readonly fb = inject(FormBuilder);
   readonly userService = inject(UserService);
+  load = signal(false)
+  loading = signal(true)
+  mode: ProgressSpinnerMode = 'indeterminate';
 
   userForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -145,6 +173,9 @@ export class Signup {
     return this.userForm.get('password') as FormControl;
   }
 
+  ngOnInit(): void {
+     this.loading.set(false)
+  }
   async submit() {
     console.log(this.userForm.get('username')?.errors);
     console.log(this.prenomControl.errors)
@@ -154,12 +185,17 @@ export class Signup {
       
       const userForm = this.userForm.getRawValue() as UserForm;
       try {
+        this.load.update((a) => !a)
         const user = await this.userService.createUser(userForm);
+        this.load.update((a) => !a)
+        
         this.router.navigateByUrl('/signin');
       } catch (e: any) {
         console.log(e);
         if (e.message === 'adresse email déjà utilisée') {
+          this.formSubmitted.set(false)
           this.emailControl.setErrors({ emailAlreadyUsed: true });
+          this.load.update((a) => !a)
         }
       }
     } 

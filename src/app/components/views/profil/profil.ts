@@ -1,25 +1,30 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
 import { UserService } from './../../../shared/services/user.service';
-import { ContactInterfaceForm, ProfilForm, User, UserForm } from '../../../shared/interfaces';
+import { ProfilForm, User, UserForm } from '../../../shared/interfaces';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { MessageService } from '../../../shared/services/contact.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop'
 import { MatDialog } from '@angular/material/dialog';
-
-
-
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-profil',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatProgressSpinnerModule],
   template: `
     @if (show()) {
         <div animate.enter="fade-in" animate.leave="fade-out" class="message-success">
           Les données ont bien été sauvegardées
         </div>
-      } 
+    } 
+     @if (load()) {
+    <mat-progress-spinner
+        class="example-margin mb-20"
+        [mode]="mode"
+        >
+    </mat-progress-spinner>
+    <span>Sauvegarde des données en cours...</span>
+     } @else {
     <form [formGroup]="profilForm" (submit)="submit()" class="card" autocomplete="off">
       
       <h2 class="mb-10">Votre profil</h2>
@@ -68,7 +73,7 @@ import { MatDialog } from '@angular/material/dialog';
       </div>
       <div>
         <button
-          [disabled]="profilForm.invalid"
+          [disabled]="profilForm.invalid || formSubmitted()"
           class="btn btn-primary"
         >
           Sauvegarder
@@ -109,7 +114,7 @@ import { MatDialog } from '@angular/material/dialog';
         </div>
       </div>
       </form>
-      
+          } 
       
   `,
   styles: `
@@ -136,8 +141,11 @@ export class Profil {
   private activatedRoute = inject(ActivatedRoute);
   profilId = toSignal(this.activatedRoute.params)()!['id'];
   show = signal(false);
+  load = signal(false);
+  mode: ProgressSpinnerMode = 'indeterminate';
+  
 
-  notificationVisible = signal(false);
+  
 
   readonly dialog = inject(MatDialog);
 
@@ -193,11 +201,8 @@ export class Profil {
     }
   })
 
-  async deconnexion() {
-    //await this.router.navigate(['signin', 1], { skipLocationChange:true})
-    
+  
 
-  }
 
    
   async submitSecu() {
@@ -216,7 +221,10 @@ export class Profil {
         }
         
         try {
+
+          
           const userPasswd = await this.userService.modifPassword(newUSer);
+          
           
           console.log("après")
           this.authService.deconnexion.set(1)
@@ -249,12 +257,18 @@ export class Profil {
         }
         
         try {
+          
+          this.load.update((a) => !a)
           const userMod = await this.userService.modifUser(newUSer);
-         
-          this.show.update((a) => !a)
-          setTimeout(() => {
-              this.show.update((a) => !a)
-          }, 3000)
+          await this.load.update((a) => !a)
+          if (this.load() === false) {
+            
+            this.show.update((a) => !a)
+            setTimeout(() => {
+                this.show.update((a) => !a)
+                this.formSubmitted.set(false);       
+            }, 3000)
+          }
           
           
         } catch (e: any) {
