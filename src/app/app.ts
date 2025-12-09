@@ -104,13 +104,13 @@ interface FoodNode {
       
       <button matButton (click)="sidenav.toggle()" class='btnlg'><i class="fa-solid fa-bars" ></i></button>
       
-      <div class='d-flex align-items-center mr-20 pl-10 flex-fill'>
+      <div class='d-flex align-items-center imgidentite'>
        <img src="./images/photo.jpg" alt="Photo d'identité">
       </div> 
       
       
       
-      <ul class='d-flex flex-row '>
+      <ul class='d-flex flex-row flex-fill justify-content-end'>
         @if (isLoggedin()) {
       
       
@@ -140,28 +140,28 @@ interface FoodNode {
       </li>
         }
       }
-      <li class='d-flex flex-column justify-content-center pr-10'>
+      <li class='d-flex flex-column justify-content-center'>
         
-        <button class='btn btn-primary btncoweb' routerLink="signin">
+        <button class='btn btn-primary btncoweb pr-10' routerLink="signin">
           <i class="fa-regular fa-user pr-10"></i>
           Connexion
         </button>
-        <button class='btn  btncomobile' routerLink="signin">
+        <button class='btn1  btncomobile' routerLink="signin">
           <span>Connexion > </span>
-          <i class="fa-regular fa-user pr-10"></i>
+          <i class="fa-regular fa-user"></i>
         </button>
       </li>
       
-      <li class='d-flex flex-column justify-content-center pr-10'>
+      <li class='d-flex flex-column justify-content-center'>
         
         <button class='btn btn-primary btninweb' routerLink="signup">
           <i class="fa-solid fa-user-plus pr-10"></i>
           Inscription
         </button>
         
-            <button class='btn btninmobile' routerLink="signup">
+            <button class='btn1 btninmobile' routerLink="signup">
               <span>Inscription > </span>
-              <i class="fa-solid fa-user-plus pr-10"></i>
+              <i class="fa-solid fa-user-plus"></i>
             </button>
           
       </li>
