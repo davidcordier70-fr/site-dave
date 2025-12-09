@@ -272,7 +272,7 @@
   color:white;
   padding-left: 15px;
   @include mixin.xss {
-    font-size:10px;
+    font-size:11px;
   }
   @include mixin.sm {
     display:none;
@@ -304,7 +304,7 @@
   color:white;
   margin-left:15px;
   @include mixin.xss {
-    font-size:10px;
+    font-size:11px;
   }
   
   @include mixin.sm {
