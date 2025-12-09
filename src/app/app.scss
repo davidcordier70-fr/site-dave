@@ -271,6 +271,7 @@
   background-color:var(--mat-sys-tertiary);
   color:white;
   padding-left: 15px;
+  font-size:13px;
   @include mixin.sm {
     display:none;
   }
@@ -300,7 +301,7 @@
   background-color:var(--mat-sys-tertiary);
   color:white;
   margin-left:15px;
-
+  font-size:13px;
   
   @include mixin.sm {
     display:none;
