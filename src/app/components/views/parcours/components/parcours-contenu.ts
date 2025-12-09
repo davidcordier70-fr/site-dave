@@ -8,7 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ParcoursService } from '../../../../shared/services/parcours.service';
-import { DatePipe, SlicePipe } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -56,7 +56,7 @@ registerLocaleData(localeFr);
       </div>
       <span class='border mb-15'></span>
       <span class='mb-20'>Doté d'une expérience de plus de 27 ans en développement informatique, je suis à la recherche d'un nouveau challenge en tant que développeur FULL STACK.</span>
-      <span class='mb-20'>J'ai récemment acquis récemment des compétences sur les derniers frameworks tels que Symfony PHP et Angular ou encore dans le domaine du déploiement avec Docker.</span>
+      <span class='mb-20'>J'ai récemment acquis des compétences sur les derniers frameworks tels que Symfony PHP et Angular ou encore dans le domaine du déploiement avec Docker.</span>
       <span>Rigoureux, dynamique et aimant travailler en équipe, je mettrai toute mon énergie au service de l'entreprise qui saura me faire confiance.</span>
     </div>
     <div class='d-flex flex-column card p-20 langue'>

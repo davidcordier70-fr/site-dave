@@ -4,6 +4,7 @@ const Messages = require('../database/models/message.model');
 const Users = require('../database/models/user.model')
 const Experiences = require('../database/models/experience.model')
 const Formations = require('../database/models/formation.model')
+const Realisations = require('../database/models/realisation.model')
 const bcrypt = require('bcrypt');
 
 const nodemailer = require("nodemailer");
@@ -24,6 +25,11 @@ const sparkPostTransporter = nodemailer.createTransport(
 exports.getCategorys = () => {
     return Categorys.find({}).exec()
 }
+
+exports.getRealisations = () => {
+    return Realisations.find({}).exec()
+}
+
 
 exports.createCategory = (category) => {
     console.log(category)

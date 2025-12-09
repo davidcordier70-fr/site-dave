@@ -21,6 +21,27 @@
       }
     }
 
+    h2 {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction: column;
+      @include mixin.xs {
+        font-size: 12px;
+      }
+      @include mixin.xl {
+        font-size:18px;
+      }
+      @include mixin.lg {
+        font-size:18px;
+      }
+      @include mixin.md {
+        font-size:16px;
+      }
+      @include mixin.sm {
+        font-size: 14px;
+      }
+    }
     
     form h2 {
       align-items:left;

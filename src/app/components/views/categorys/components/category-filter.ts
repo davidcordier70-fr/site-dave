@@ -7,14 +7,15 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { CategoryInterface } from '../../../../shared/interfaces';
 
 @Component({
   selector: 'app-category-filter',
   imports: [FormsModule, MatCheckboxModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDividerModule],
   template: `
-    <mat-form-field>
+    <mat-form-field class='selectCat'>
       <mat-label>Choisir une categorie ...</mat-label>
-      <select matNativeControl [(ngModel)]="selectedCategory">
+      <select matNativeControl [(ngModel)]="selectedCategory" >
         <option [ngValue]='null'>Toutes les catégories</option>
         @for (category of categorysFilter(); track category._id) {
           <option [ngValue]="category.libelle_cat">{{ category.libelle }}</option>
@@ -36,11 +37,12 @@ import { MatDividerModule } from '@angular/material/divider';
       border-color:var(--gray-700);
     }
   `,
+  styleUrl:'../category.scss'
 })
 export class CategoryFilter {
   selectedCategory = model.required<string | null>()
   categoryService=inject(CategoryService)
-  categorysFilter = computed(() => this.categoryService.categoryResource.value()  ) 
+  categorysFilter = computed(() => this.categoryService.categoryResource.value()?.sort(compareCategorys) ) 
   disableSelect = new FormControl(false);
   
   //categorys = signal<CategoryInterface[]>(categoryData)
@@ -58,4 +60,18 @@ export class CategoryFilter {
 
   
   
+}
+
+function compareCategorys(a:CategoryInterface, b:CategoryInterface): number {
+  const nameA = a.libelle; // ignorer les majuscules/minuscules
+  const nameB = b.libelle; // ignorer les majuscules/minuscules
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+
+  // les noms sont égaux
+  return 0;
 }

@@ -93,7 +93,7 @@ export class Category {
             
       }
       
-      return competenceDisplays 
+      return competenceDisplays.sort(compareCompetences) 
     }) 
 
   initCocktailFormEffect = effect(() => {
@@ -126,6 +126,20 @@ export class Category {
 function compareCategorys(a:CompetenceInterface, b:CompetenceInterface): number {
   const nameA = a.category_name; // ignorer les majuscules/minuscules
   const nameB = b.category_name; // ignorer les majuscules/minuscules
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+
+  // les noms sont égaux
+  return 0;
+}
+
+function compareCompetences(a:CompetenceInterfaceFDisplay, b:CompetenceInterfaceFDisplay): number {
+  const nameA = a.namecat; // ignorer les majuscules/minuscules
+  const nameB = b.namecat; // ignorer les majuscules/minuscules
   if (nameA < nameB) {
     return -1;
   }

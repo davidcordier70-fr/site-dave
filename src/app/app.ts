@@ -10,8 +10,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from './shared/services/auth.service';
 import {MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-
 
 
 import {
@@ -38,29 +36,29 @@ interface FoodNode {
     <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
                 (closed)="events.push('close!')" class='sidenav'>
-      <a class='d-flex flex-row menu' routerLink="">
+      <a class='d-flex flex-row menu_general' routerLink="">
         <i class="fa-solid fa-house"></i>
         <span>Accueil</span>
       </a>
-      <a class='d-flex flex-row menu' (click)="reloadComponent('categorys')">
+      <a class='d-flex flex-row menu_general' (click)="reloadComponent('categorys')">
         <i class="fa-solid fa-book-open"></i>
         <span>Mes compétences</span>
       </a>
-      <a class='d-flex flex-row menu' routerLink="parcours">
+      <a class='d-flex flex-row menu_general' routerLink="parcours">
         <i class="fa-solid fa-person-running"></i>
         <span>Mon parcours professionnel</span>
       </a>
-      <a class='d-flex flex-row menu' routerLink="realisations">
+      <a class='d-flex flex-row menu_general' routerLink="realisations">
         <i class="fa-solid fa-lightbulb"></i>
         <span>Mes réalisations</span>
       </a>
       @if (isLoggedin()) {
-        <a class='d-flex flex-row menu' routerLink="contact">
+        <a class='d-flex flex-row menu_general' routerLink="contact">
           <i class="fa-solid fa-address-book"></i>
           <span>Me contacter</span>
         </a>
       }
-      <a class='d-flex flex-row menu' routerLink="">
+      <a class='d-flex flex-row menu_general' routerLink="">
         <i class="fa-solid fa-pen-ruler"></i>
         <span>Conditions générales</span>
       </a>
@@ -71,6 +69,9 @@ interface FoodNode {
     <mat-sidenav-content class='mat-sidenav-content'>
       
       <div class='navbar'>
+        <a class='d-flex flex-row menu none' routerLink="">
+        <i class="fa-solid fa-house"></i>
+      </a>
       <div class='d-flex'>
       <button matIconButton [matMenuTriggerFor]="menu" aria-label="Menu général" class='btnmobile'>
         <i class="fa-solid fa-bars"></i>
@@ -102,9 +103,12 @@ interface FoodNode {
       </mat-menu>
       
       <button matButton (click)="sidenav.toggle()" class='btnlg'><i class="fa-solid fa-bars" ></i></button>
-      <div class='d-flex align-items-center mr-20 flex-fill'>
+      
+      <div class='d-flex align-items-center mr-20 pl-10 flex-fill'>
        <img src="./images/photo.jpg" alt="Photo d'identité">
       </div> 
+      
+      
       
       <ul class='d-flex flex-row '>
         @if (isLoggedin()) {
@@ -157,7 +161,7 @@ interface FoodNode {
         
             <button class='btn btninmobile' routerLink="signup">
               <span>Inscription > </span>
-              <i class="fa-regular fa-user pr-10"></i>
+              <i class="fa-solid fa-user-plus pr-10"></i>
             </button>
           
       </li>

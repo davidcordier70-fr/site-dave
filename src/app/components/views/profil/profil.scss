@@ -11,6 +11,7 @@
 
     }
     form {
+      padding:20px;
       @include mixin.sm {
         margin:20px;
          width:600px;
@@ -20,12 +21,15 @@
         width:360px;
       }
       @include mixin.md {
+        margin:20px;
         width:600px;
       }
       @include mixin.lg {
         width:600px;
+        margin:20px;
       }
       @include mixin.xl {
+        margin:20px;
         width:600px;
       }
      

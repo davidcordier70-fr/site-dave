@@ -1,5 +1,5 @@
 export interface CategoryInterfaceGraph  {
-  category_name:string | undefined,
+  category_name:string,
   libelle:string | undefined,
   background:string,
   codeClass:string

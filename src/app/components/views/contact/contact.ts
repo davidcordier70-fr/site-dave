@@ -168,6 +168,7 @@ export class Contact {
     if (this.isLoggedin()) {
       this.nomControl.setValue(this.currentUser().nom)
       this.prenomControl.setValue(this.currentUser().prenom)
+      this.nomentControl.setValue(this.currentUser().noment)
       this.mailControl.setValue(this.currentUser().email)
     }
   })

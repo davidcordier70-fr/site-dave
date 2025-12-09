@@ -33,9 +33,9 @@
 .navbar {
   display:flex;
   align-items:center;
-  height:80px;
+  //height:80px;
   background:var(--mat-sys-tertiary);
-  padding-right:10px;
+  padding:10px 20px 10px 10px;
 
 }
 
@@ -314,3 +314,23 @@
   
 }
 
+.none {
+  display:none;
+  @include mixin.xs {
+    display:flex;
+  }
+  @include mixin.sm {
+    display:flex;
+  }
+  @include mixin.md {
+    display:flex;
+  }
+  @include mixin.lg {
+    display:flex;
+  }
+}
+
+.none i { 
+  padding: 0 10px 0 10px;
+  
+}

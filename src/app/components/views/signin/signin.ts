@@ -10,18 +10,19 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { SigninForm } from '../../../shared/interfaces';
 import { ProgressBarQueryExample } from "../../sidebar";
-import { toSignal } from '@angular/core/rxjs-interop';
-import {ChangeDetectorRef,  computed, OnInit,  viewChild, ViewChild} from '@angular/core';
+import {OnInit} from '@angular/core';
 import {ProgressBarMode, MatProgressBarModule, MatProgressBar} from '@angular/material/progress-bar';
 import {MatSliderModule} from '@angular/material/slider';
 import {FormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 @Component({
   selector: 'app-signin',
-  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample, MatCardModule, MatRadioModule, FormsModule, MatSliderModule, MatProgressBarModule],
+  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample, MatCardModule, MatRadioModule, FormsModule, MatSliderModule, MatProgressBarModule, MatProgressSpinnerModule],
   template: `
     @if (deconnexion()) {
      
@@ -29,20 +30,27 @@ import {MatCardModule} from '@angular/material/card';
       <h2>Mot de passe mise à jour avec succès. Vous allez être redirigé sur la page de connexion</h2>
       <mat-progress-bar
           class="example-margin"
-          [mode]="mode"
+          [mode]="modebar"
           [value]="value"
           [bufferValue]="bufferValue">
       </mat-progress-bar>
     </section>
     
     } @else {
-    
+      
 
     <div class='d-flex flex-fill flex-column'>
       <div>
         <progress-bar-query-example />
       </div>
       <div class='d-flex flex-column align-items-center flex-fill justify-content-center'>
+      @if (loading()) {
+      <mat-progress-spinner
+              class="example-margin mb-20"
+              [mode]="mode"
+          >
+      </mat-progress-spinner>
+    } @else {
       <form [formGroup]="signinForm" (submit)="submit()"  class="card d-flex flex-column align-items-center" autocomplete="off">
           
           <h2 class="mb-10">Bon retour parmi nous !</h2>
@@ -86,6 +94,7 @@ import {MatCardModule} from '@angular/material/card';
             </div>
           </div>
         </form>
+          }
         </div>
       </div>
           }
@@ -105,15 +114,16 @@ import {MatCardModule} from '@angular/material/card';
   `,
   styleUrl: 'signin.scss'
 })
-export class Signin {
+export class Signin implements OnInit {
   readonly fb = inject(FormBuilder);
   readonly authService = inject(AuthService);
   value = 50
   bufferValue = 75
+  mode: ProgressSpinnerMode = 'indeterminate';
   
   deconnexion = this.authService.deconnexion
-  mode: ProgressBarMode = 'indeterminate';
-
+  modebar: ProgressBarMode = 'indeterminate';
+  loading = signal(true)
   signinForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -127,6 +137,10 @@ export class Signin {
     return this.signinForm.get('password') as FormControl;
   }
   
+ngOnInit(): void {
+  this.loading.set(false)
+}
+
   async submit() {
     this.formSubmitted.set(true);
     if (this.signinForm.valid) {

@@ -1,10 +1,12 @@
 const express = require('express')
 //const api = require('./api')
-const { categorysList, createCategory, competencesList, experiencesList, formationsList, categoryDelete, createCompetence, createUser, authUser, currentUser, deleteUser, createMessage, userUpdate, createExperience, createFormation, passwordUpdate } = require('./../controllers/api.controller')
+const { categorysList, createCategory, competencesList, experiencesList, formationsList, categoryDelete, createCompetence, createUser, authUser, currentUser, deleteUser, createMessage, userUpdate, createExperience, createFormation, passwordUpdate, realisationsList } = require('./../controllers/api.controller')
 
 const router = express.Router()
 
 router.get('/categorys', categorysList)
+
+router.get('/realisations', realisationsList)
 
 router.get('/parcours/experiences', experiencesList)
 

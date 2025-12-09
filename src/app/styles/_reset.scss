@@ -48,6 +48,14 @@ img {
 
 }
 
+.btn-primary1 {
+  background-color:var(--mat-sys-tertiary);
+  color:white;
+  font-weight:bold;
+  
+
+}
+
 
 
 
@@ -100,6 +108,24 @@ a {
     & > i {
       z-index:1;
       color:black;
+    }
+  }
+  
+
+
+}
+
+.btn-primary1 {
+  
+  &:hover {
+    color:white;
+    background:black;
+    font-weight:400;
+    font-family: var(--font-family);
+    font-weight:bold;
+    & > i {
+      z-index:1;
+      color:white;
     }
   }
   

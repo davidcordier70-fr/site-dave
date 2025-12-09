@@ -1,4 +1,4 @@
-const { getCategorys,  createCategory, getCompetences, getExperiences, getFormations, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation, updatePassword, messageContact } = require('../queries/api.queries')
+const { getCategorys,  createCategory, getCompetences, getExperiences, getFormations, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation, updatePassword, messageContact, getRealisations } = require('../queries/api.queries')
 const jsonwebtoken = require('jsonwebtoken');
 const { key, keyPub } =  require('./../keys/index')
 const bcrypt = require('bcrypt');
@@ -72,6 +72,17 @@ exports.competencesList = async (req, res, next) => {
         const competences = await getCompetences()
         res.set('Access-Control-Allow-Origin', '*')
         res.json( competences)
+    } catch(e) {
+        next(e)
+    }
+}
+
+exports.realisationsList = async (req, res, next) => {
+    try {
+        console.log('getcomp')
+        const realisations = await getRealisations()
+        res.set('Access-Control-Allow-Origin', '*')
+        res.json( realisations)
     } catch(e) {
         next(e)
     }

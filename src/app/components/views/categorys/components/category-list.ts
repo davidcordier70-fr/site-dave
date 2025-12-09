@@ -13,7 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
       <div class='d-flex flex-column mt-20'>
      
              <div class='mt-20 competences-container'>
-              @for (competence of initial.competences; track $index) {
+              @for (competence of initial.competences.sort(compareCompetences); track $index) {
                  <div class='comp d-flex flex-column'>
                     <div class='background-comp' [style.background]="competence.gradient">
                     </div>
@@ -88,6 +88,22 @@ export class CategoryList {
     //console.log(this.activatedRoute.params)
   })
 
+  compareCompetences(a:CompetenceInterface, b:CompetenceInterface): number {
+    const nameA = a.name; // ignorer les majuscules/minuscules
+    const nameB = b.name; // ignorer les majuscules/minuscules
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    // les noms sont égaux
+    return 0;
+  }
+
 }
+
+
 
 

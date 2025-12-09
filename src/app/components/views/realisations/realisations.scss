@@ -1,0 +1,373 @@
+@use './../../../styles/mixins' as mixin;
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.btn-accordeon {
+  background-color:var(--mat-sys-tertiary);
+  color:white;
+  width:120px;
+  font-size:12px;
+
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+  justify-content:end;
+  
+}
+
+.mat-expansion-panel {
+  //background:rgb(228, 225, 236);
+  //background:var(--gray-100);
+  
+}
+
+.mat-expansion-panel-header-title {
+  font-weight:500;
+}
+
+
+.mat-expansion-indicator svg {
+  fill:white;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+.card {
+  background:white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius:10px;
+
+}
+
+.langue {
+  
+  
+  @include mixin.md {
+    width:700px;
+  }
+  @include mixin.lg {
+    width:450px;
+  }
+  @include mixin.xl {
+    width:450px;
+  }
+}
+
+.coordonnees {
+  @include mixin.xs {
+    flex-direction: column;
+  }
+  @include mixin.sm {
+    flex-direction:column;
+  }
+}
+
+.border {
+  border:1px solid var(--mat-sys-tertiary);
+  
+
+}
+
+.border2 {
+  border:1px solid var(--mat-sys-tertiary);
+  @include mixin.sm {
+    width:300px;
+  }
+  @include mixin.md {
+    width:300px;
+  }
+  @include mixin.lg {
+    width:300px;
+  }
+  
+   
+  
+  
+}
+
+.titres {
+  color:var(--mat-sys-tertiary);
+}
+
+.imglangue {
+  width:40px;
+}
+
+.textlangue {
+  color:black;
+}
+
+.textlangueita {
+  font-style:italic;
+}
+
+.exp {
+  padding:20px;
+  margin:20px;
+}
+
+.postes {
+  @include mixin.sm {
+    margin-top: 20px;
+  }
+  @include mixin.md {
+    width:230px;
+    padding-left:30px;
+  }
+  @include mixin.lg {
+    width:230px;
+    padding-left:30px;
+  }
+  @include mixin.xl {
+    width:230px;
+    padding-left:30px;
+  }
+  
+  
+}
+
+.mat-mdc-tab {
+  font-size:20px;
+}
+
+.ecole {
+  font-style:italic;
+  font-size:20px;
+  color:var(--mat-sys-tertiary);
+  @include mixin.xs {
+    margin-bottom:10px;
+  }
+}
+
+a {
+  text-align:left;
+}
+
+.imgxs {
+  
+  @include mixin.md {
+    display:none;
+  }
+  @include mixin.lg {
+    display:none;
+  }
+  @include mixin.xl {
+    display:none;
+  }
+}
+
+.imglg {
+  margin-top:20px;
+  @include mixin.md {
+    display:none;
+  }
+  @include mixin.xs {
+    display:none;
+  }
+  @include mixin.sm {
+    display:none;
+  }
+ 
+}
+
+.contenuexp {
+  @include mixin.xs {
+    flex-direction:column;
+  }
+  @include mixin.sm {
+    flex-direction:column;
+  }
+  
+}
+
+h2 {
+  color:black;
+  @include mixin.sm {
+    font-size:16px;
+  }
+  @include mixin.xs {
+    font-size:13px;
+  }
+}
+
+.champcoor {
+  @include mixin.sm {
+    flex-direction: column;
+  }
+}
+
+.champcolor {
+  font-weight:bold;
+}
+
+.titleeco {
+  @include mixin.xs {
+    flex-direction:column;
+  }
+}
+
+.titreform {
+  @include mixin.xs {
+    margin-bottom:10px;
+  }
+  @include mixin.sm {
+    margin-bottom:5px;
+  }
+  @include mixin.md {
+    margin-bottom:5px;
+  }
+  @include mixin.lg {
+    margin-bottom:5px;
+  }
+  @include mixin.xl {
+    margin-bottom:5px;
+  }
+}
+
+.mat-mdc-menu-item:not([disabled]):hover {
+  background-color:var(--gray-700);
+}
+
+::ng-deep .customize {
+  padding:15px 10px 10px 10px;
+}
+
+::ng-deep .customize button:hover {
+  
+  color:white;
+  
+}
+
+.libtech {
+  width:35px;
+  font-style:italic;
+  font-weight:500;
+}
+
+.libtech1 {
+  width:125px;
+  font-style:italic;
+  font-weight:500;
+}
+
+p {
+  margin-top:0;
+  text-align: justify;
+}
+
+.infosreal {
+  @include mixin.xs {
+    flex-direction: column;
+   
+  }
+  @include mixin.xl {
+    margin-top:20px;
+  }
+  @include mixin.lg {
+    margin-top:20px;
+  }
+  @include mixin.md {
+    margin-top:20px;
+  }
+  @include mixin.sm {
+    margin-top:20px;
+  }
+}
+
+.infotech {
+  @include mixin.xs {
+    margin-bottom:20px;
+  }
+  @include mixin.sm {
+    margin-right:40px;
+  }
+  @include mixin.md {
+    margin-right:40px;
+  }
+  @include mixin.lg {
+    margin-right:40px;
+  }
+  @include mixin.xl {
+    margin-right:40px;
+  }
+}
+
+.infobdd {
+  @include mixin.xs {
+    margin-bottom: 20px;
+  }
+  
+}
+
+.infourl {
+   @include mixin.xs {
+    flex-direction: column;
+    justify-content: end;
+  }
+  @include mixin.lg {
+    margin-top:20px;
+    justify-content: end;
+  }
+  @include mixin.xl {
+    margin-top:20px;
+    justify-content: end;
+  }
+  @include mixin.sm {
+    margin-top:20px;
+    justify-content: end;
+  }
+  @include mixin.md {
+    margin-top:20px;
+    justify-content: end;
+  }
+}
+
+.infoimg img {
+  @include mixin.xl {
+    max-width:max-content;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left:20px;
+  }
+  @include mixin.lg {
+    max-width:max-content;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left:20px;
+  }
+  @include mixin.md {
+    max-width:max-content;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left:20px;
+  }
+  @include mixin.xs {
+    margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    
+  }
+  @include mixin.sm {
+    margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    
+  }
+}
+
+.infodescr {
+  @include mixin.md {
+    flex-direction: column;
+    align-items: center;
+  }
+  @include mixin.sm {
+    flex-direction: column;
+    align-items: center;
+  }
+   @include mixin.xs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+}

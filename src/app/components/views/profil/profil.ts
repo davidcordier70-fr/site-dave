@@ -226,7 +226,7 @@ export class Profil {
           const userPasswd = await this.userService.modifPassword(newUSer);
           
           
-          console.log("après")
+          
           this.authService.deconnexion.set(1)
           this.authService.logout()
           //await this.deconnexion()

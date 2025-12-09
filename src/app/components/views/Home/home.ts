@@ -45,10 +45,10 @@ import { AuthService } from '../../../shared/services/auth.service';
     <div class='d-flex flex-column compet flex-fill'>
       <div class='d-flex align-items-center justify-content-center mb-20'>
         <h2 class='flex-fill '>Mes compétences</h2>
-        <button class='btn btn-primary' [routerLink]="'categorys'">Toutes les compétences</button>
+        <button class='btn btn-primary1' [routerLink]="'categorys'">Toutes les compétences</button>
       </div>
       <div class='competences-container'>
-        @for (category of categorysData(); track category.category_name) {
+        @for (category of categorysDataFilter(); track category.category_name) {
           <button [style.background]="category.background" class='outils' [routerLink]="['.', 'categorys',category.category_name]">
               <i [className]="category.codeClass"></i>
                 <h2>{{ category.libelle}}</h2>
@@ -82,6 +82,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 })
 export class Home {
   categorysData = signal(<CategoryInterfaceGraph[]>(categoryData))
+  categorysDataFilter = computed(() => this.categorysData()?.sort(compareCategorys))
   readonly authService = inject(AuthService);
   isLoggedin = this.authService.isLoggedin;
   currentUser=computed(() => this.authService.currentUserResource.value());
@@ -97,4 +98,18 @@ export class Home {
   }
 
   
+}
+
+function compareCategorys(a:CategoryInterfaceGraph, b:CategoryInterfaceGraph): number {
+  const nameA = a.category_name; // ignorer les majuscules/minuscules
+  const nameB = b.category_name; // ignorer les majuscules/minuscules
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+
+  // les noms sont égaux
+  return 0;
 }
