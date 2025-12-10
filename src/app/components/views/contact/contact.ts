@@ -78,7 +78,8 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
           <textarea
           formControlName="message"
           id="message"
-          rows="5"
+          rows="10"
+          cols="30"
           class='flex-fill'
           ></textarea>
         </div>
