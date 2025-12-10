@@ -133,7 +133,7 @@ exports.updatePassword = async (id, user) => {
 
 exports.main = async (email) => {
   const data = await sparkPostTransporter.sendMail({
-      from: 'no-reply@dave-it.fr',
+      from: 'contact@dave-it.fr',
       to: email,
       subject: 'Bienvenue sur dave-it.fr',
        html: `<!DOCTYPE html>
@@ -220,7 +220,7 @@ exports.main = async (email) => {
 
 exports.messageContact = async (email, nom, prenom, noment, titre, message) => {
   const data = await sparkPostTransporter.sendMail({
-      from: 'no-reply@dave-it.fr',
+      from: 'contact@dave-it.fr',
       to: email,
       subject: 'Message de '+nom+' '+prenom,
        html: `<!DOCTYPE html>
