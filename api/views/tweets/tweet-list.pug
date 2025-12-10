@@ -1,6 +1,0 @@
-if tweets
-    each tweet in tweets 
-        div(class='card me-3 mb-3 d-flex flex-row')  
-            div(class='card-body d-flex flex-row')
-                a(class='card-text flex-fill' href='tweets/edit/'+ tweet._id)=tweet.content
-                div(class='btn btn-danger float-end' tweetId=tweet._id) X

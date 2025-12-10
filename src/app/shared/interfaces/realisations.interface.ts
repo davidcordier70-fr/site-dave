@@ -9,5 +9,6 @@ export interface Realisations {
   type:String | null;
   base_de_donnees:String | null;
   gestion_contenu:String  | null;
+  github:String  | null;
 }
 

@@ -10,7 +10,8 @@ const RealisationsSchema = schema({
         url_site: String,
         description: String,
         type: String,
-        base_de_donnees: String
+        base_de_donnees: String,
+        github: String
              
    },
  {

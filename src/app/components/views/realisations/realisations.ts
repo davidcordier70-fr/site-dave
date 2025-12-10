@@ -101,10 +101,16 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
             
           </div> 
           @if (realpro.url_site != '') {
-                  <div class='d-flex infourl'>
-                    <h3>Lien vers le site : <a [href]="realpro.url_site" [style.color]="'rgb(0, 92, 187)'"> {{ realpro.url_site }}</a></h3>
-                  </div>
-                } 
+             <div class='d-flex infourl'>
+                <h3>Lien vers le site : <a [href]="realpro.url_site" target='_blank' [style.color]="'rgb(0, 92, 187)'"> {{ realpro.url_site }}</a></h3>
+             </div>
+          }
+           @if (realpro.github != '') {
+              <div class='d-flex infourl'>
+                  <h3>Lien vers github : <a [href]="realpro.github" target='_blank' [style.color]="'rgb(0, 92, 187)'"> {{ realpro.github }}</a></h3>
+              </div>
+           }
+                
           
         </div>  
                 }  
@@ -184,10 +190,14 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
           </div> 
           @if (realperso.url_site != '') {
             <div class='d-flex infourl'>
-              <h3>Lien vers le site : <a [href]="realperso.url_site" [style.color]="'rgb(0, 92, 187)'"> {{ realperso.url_site }}</a></h3>
+              <h3>Lien vers le site : <a [href]="realperso.url_site" target='_blank' [style.color]="'rgb(0, 92, 187)'"> {{ realperso.url_site }}</a></h3>
             </div>
           }
-          
+          @if (realperso.github != '') {
+            <div class='d-flex infourl'>
+                <h3>Lien vers github : <a [href]="realperso.github" target='_blank' [style.color]="'rgb(0, 92, 187)'"> {{ realperso.github }}</a></h3>
+            </div>
+           }          
         </div>  
                 }
     </mat-tab>

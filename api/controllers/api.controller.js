@@ -169,7 +169,7 @@ exports.createMessage = async (req, res) => {
   console.log(req.body)
   if (email !== undefined) {
        try {
-          console.log(email, nom, prenom, noment, titre, message)
+          
           data = await messageContact(email, nom, prenom, noment, titre, message)
        } catch (e) {
           console.log(e)

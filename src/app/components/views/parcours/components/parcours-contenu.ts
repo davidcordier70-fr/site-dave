@@ -89,7 +89,7 @@ registerLocaleData(localeFr);
         <h2>Liens utiles</h2>
       </div>
       <span class='border mb-15'></span>
-      <a class='textlangueita' href="https://www.linkedin.com/in/david-cordier-3b2848207/">Mon profil Linkedin</a>
+      <a class='textlangueita' href="https://www.linkedin.com/in/david-cordier-3b2848207/" target="_blank">Mon profil Linkedin</a>
       
     </div> 
   </div>
