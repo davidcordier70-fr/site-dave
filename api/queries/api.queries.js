@@ -275,8 +275,8 @@ exports.messageContact = async (email, nom, prenom, noment, titre, message) => {
                </head> 
                <body>  
                     <h1>Message de `+nom+' '+prenom+' '+noment+`</h1>
-                    <p class='mb-20'>Titre :`+titre+`</p>
-                    <p class='mb-20'>Message :`+message+`
+                    <p class='mb-20'>Titre :`+titre.trim()+`</p>
+                    <p class='mb-20'>Message :`+message.trim()+`
                </body>   
                </html>
             `
