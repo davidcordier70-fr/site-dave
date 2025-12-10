@@ -196,7 +196,7 @@ exports.main = async (email) => {
                     </button>
                     <p>Vous pouvez accéder à mon parcours professionnel en cliquant sur le lien ci-dessous :</p> 
                     <button class='btn btn-primary mb-20' style='cursor:pointer'>
-                        <a href='http://dave-it.fr/contact/'>
+                        <a href='http://dave-it.fr/parcours/'>
                             Accéder à mon parcours professionnel</p></button>
                         </a>
                     </button>

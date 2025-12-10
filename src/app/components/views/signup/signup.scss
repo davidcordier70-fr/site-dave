@@ -134,7 +134,7 @@
     .nom {
       @include mixin.xs {
         flex:1;
-        padding-right:20px;
+        
       }
       @include mixin.sm {
         flex:1;
