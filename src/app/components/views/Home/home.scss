@@ -19,8 +19,11 @@
   }
   @include mixin.xs {
     grid-template-columns: 1fr ;
-   grid-auto-columns: 1fr ;
-   align-items: center;
+    grid-auto-columns: 1fr ;
+    align-items: center;
+    display: flex;
+    flex-direction:column;
+
    
   }
 

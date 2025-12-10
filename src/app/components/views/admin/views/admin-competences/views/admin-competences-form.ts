@@ -18,8 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompetenceService } from '../../../../../../shared/services/competence.service';
 import { CategoryService } from '../../../../../../shared/services/category.service';
 import { CompetenceInterface, CompetenceInterfaceForm } from '../../../../../../shared/interfaces';
-/*import { CoktailsInterface, CoktailsInterfaceForm } from 'app/shared/interfaces';
-import { CoktailsService } from 'app/shared/services/coktails-service';*/
+
 
 @Component({
   selector: 'app-admin-competences-form',
@@ -125,29 +124,6 @@ export class AdminCompetencesForm {
     padding_image:['', Validators.required],
     gradient:['', Validators.required]
   });
-
-  /*initCocktailFormEffect = effect(() => {
-    console.log(this.cocktailId)
-    if (this.cocktailId) {
-      const cocktails = this.cocktails();
-      if (cocktails) {
-        const { name, imageUrl, description, ingredients } = cocktails.find(
-          ({ _id }) => this.cocktailId === _id
-        )!;
-        this.cocktailForm.patchValue({
-          name,
-          imageUrl,
-          description,
-        });
-        ingredients.forEach((i) =>
-          this.ingredientsControl.push(this.fb.control(i))
-        );
-        this.initCocktailFormEffect.destroy();
-      }
-    } else {
-      this.initCocktailFormEffect.destroy();
-    }
-  });*/
 
   get competencesControl() {
     return this.competenceForm.get('competences') as FormArray;

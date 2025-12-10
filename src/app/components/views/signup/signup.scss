@@ -176,5 +176,14 @@
         flex:1;
         
       }
-      
+
       }
+
+    .connect {
+        @include mixin.xss {
+          width: 170px;
+        }
+        @include mixin.xs {
+          width: 170px;
+        }
+    }

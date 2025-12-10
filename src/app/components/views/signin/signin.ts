@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { SigninForm } from '../../../shared/interfaces';
 import { ProgressBarQueryExample } from "../../sidebar";
@@ -17,12 +17,13 @@ import {FormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
 @Component({
   selector: 'app-signin',
-  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample, MatCardModule, MatRadioModule, FormsModule, MatSliderModule, MatProgressBarModule, MatProgressSpinnerModule],
+  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample, MatCardModule, MatRadioModule, FormsModule, MatSliderModule, MatProgressBarModule, MatProgressSpinnerModule, MatIconModule],
   template: `
     @if (deconnexion()) {
      
@@ -51,13 +52,13 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
           >
       </mat-progress-spinner>
     } @else {
-      <form [formGroup]="signinForm" (submit)="submit()"  class="card d-flex flex-column align-items-center" autocomplete="off">
+      <form [formGroup]="signinForm" (submit)="submit()"  class="card d-flex flex-column" autocomplete="off">
           
           <h2 class="mb-10">Bon retour parmi nous !</h2>
           <span class="d-flex flex-column mb-20">Connectez vous à votre compte</span>
           <div class="d-flex flex-column mb-20">
             <label for="email" class='mb-10'>Email</label>
-            <input formControlName="email" type="text" id="email" class='mb-10'/>
+            <input formControlName="email" type="text" id="email" class='mb-10 flex-fill'/>
             @if (emailControl.errors?.['required'] && (emailControl.touched ||
             formSubmitted())) {
             <span class="error">Email obligatoire</span>
@@ -68,7 +69,18 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
           </div>
           <div class="d-flex flex-column mb-20">
             <label for="password" class='mb-10'>Mot de passe</label>
-            <input formControlName="password" type="password" id="password" class='mb-10'/>
+            <div class="d-flex mb-10">
+              <input formControlName="password" [type]="hide() ? 'password' : 'text'" id="password" class='flex-fill'/>
+              <button type='button'
+                matIconButton
+                matSuffix
+                (click)="clickEvent($event)"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide()"
+              >
+                <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </div>
             @if (passwordControl.errors?.['required'] && (passwordControl.touched ||
             formSubmitted() )) {
             <span class="error">Mot de passe obligatoire</span>
@@ -136,6 +148,12 @@ export class Signin implements OnInit {
   get passwordControl() {
     return this.signinForm.get('password') as FormControl;
   }
+
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
   
 ngOnInit(): void {
   this.loading.set(false)
@@ -149,7 +167,6 @@ ngOnInit(): void {
         const user = await this.authService.signin(signinForm);
         this.router.navigateByUrl('/');
       } catch (e: any) {
-        console.log(e);
         this.signinForm.setErrors({ general: true });
       }
     }
@@ -162,7 +179,6 @@ ngOnInit(): void {
       },4000)
     } else {
       const currentUser = this.authService.currentUserResource.value();
-      console.log(currentUser)
       if (currentUser !== null) {
         this.router.navigateByUrl('/')
       }

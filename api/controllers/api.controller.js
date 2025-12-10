@@ -1,4 +1,4 @@
-const { getCategorys,  createCategory, getCompetences, getExperiences, getFormations, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation, updatePassword, messageContact, getRealisations } = require('../queries/api.queries')
+const { getCategorys,  createCategory, getCompetences, getExperiences, getFormations, createCompetence, deleteCategory, createUser, authUtilisateur, getCurrentUser, createMessage, main, updateUser, createExperience, createFormation, updatePassword, messageContact, getRealisations, deleteCptUser } = require('../queries/api.queries')
 const jsonwebtoken = require('jsonwebtoken');
 const { key, keyPub } =  require('./../keys/index')
 const bcrypt = require('bcrypt');
@@ -195,6 +195,16 @@ exports.createFormation = async (req, res) => {
 exports.deleteUser = (req, res) => {
   res.clearCookie("token");
   return res.end();
+};
+
+exports.deleteCptUser = async (req, res) => { 
+     console.log(req);
+  console.log(req.params.userId)
+  const userId =req.params.userId
+  await deleteCptUser(userId)
+  res.clearCookie("token");
+  return res.status(200).json('User supprimé')
+  
 };
 
 

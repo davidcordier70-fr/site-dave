@@ -1,6 +1,6 @@
 const express = require('express')
-//const api = require('./api')
-const { categorysList, createCategory, competencesList, experiencesList, formationsList, categoryDelete, createCompetence, createUser, authUser, currentUser, deleteUser, createMessage, userUpdate, createExperience, createFormation, passwordUpdate, realisationsList } = require('./../controllers/api.controller')
+
+const { categorysList, createCategory, competencesList, experiencesList, formationsList, categoryDelete, createCompetence, createUser, authUser, currentUser, deleteUser, createMessage, userUpdate, createExperience, createFormation, passwordUpdate, realisationsList, deleteCptUser } = require('./../controllers/api.controller')
 
 const router = express.Router()
 
@@ -25,6 +25,8 @@ router.delete('/categorys/:categoryId', categoryDelete)
 router.patch('/users/:id/infos', userUpdate)
 
 router.patch('/users/:id/password', passwordUpdate)
+
+router.delete('/users/:userId', deleteCptUser)
 
 router.post("/users", createUser);
 

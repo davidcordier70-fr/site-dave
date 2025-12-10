@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { afterNextRender, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { signal } from '@angular/core';
 import { UserService } from './../../../shared/services/user.service';
@@ -6,10 +6,11 @@ import { UserForm } from '../../../shared/interfaces';
 import { Router, RouterLink } from '@angular/router';
 import { ProgressBarQueryExample } from "../../sidebar";
 import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample,MatProgressSpinnerModule],
+  imports: [ReactiveFormsModule, RouterLink, ProgressBarQueryExample,MatProgressSpinnerModule, MatIconModule],
   template: `
 
     
@@ -91,7 +92,16 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
       <div class="d-flex flex-column mb-10 ">
         <label for="password" class='mb-10'>Mot de passe</label>
         <div class="d-flex mb-10">
-          <input formControlName="password" type="password" id="password" class='flex-fill' />
+          <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" id="password" class='flex-fill' />
+          <button type='button'
+            matIconButton
+            matSuffix
+            (click)="clickEvent($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()"
+          >
+           <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </div>
         <div class="d-flex flex-column">
             @if (passwordControl.errors?.['required'] && (passwordControl.touched || formSubmitted())) {
@@ -113,7 +123,7 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
           </div>
           <div class='btn-connexion '>
             <span class='pr-10'>Déjà inscrit ?</span>
-            <button class='btn btn-primary' type='button' [routerLink]="'../signin'">Connecter vous à votre compte</button>
+            <button class='btn btn-primary connect' type='button' [routerLink]="'../signin'">Connecter vous à votre compte</button>
           </div>
       </div>
     </form>
@@ -135,12 +145,18 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
   `,
   styleUrl: 'signup.scss'
 })
-export class Signup implements OnInit{
+export class Signup {
   readonly fb = inject(FormBuilder);
   readonly userService = inject(UserService);
   load = signal(false)
   loading = signal(true)
   mode: ProgressSpinnerMode = 'indeterminate';
+
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
   userForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -173,12 +189,13 @@ export class Signup implements OnInit{
     return this.userForm.get('password') as FormControl;
   }
 
-  ngOnInit(): void {
-     this.loading.set(false)
+  constructor() {
+    afterNextRender(() => {
+      console.log("after");
+      this.loading.set(false);
+  })
   }
   async submit() {
-    console.log(this.userForm.get('username')?.errors);
-    console.log(this.prenomControl.errors)
     this.formSubmitted.set(true);
     if (this.userForm.valid) {
       
@@ -191,7 +208,7 @@ export class Signup implements OnInit{
         
         this.router.navigateByUrl('/signin');
       } catch (e: any) {
-        console.log(e);
+        
         if (e.message === 'adresse email déjà utilisée') {
           this.formSubmitted.set(false)
           this.emailControl.setErrors({ emailAlreadyUsed: true });

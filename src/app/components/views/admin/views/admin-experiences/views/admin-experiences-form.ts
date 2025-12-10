@@ -4,7 +4,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import {
   FormArray,
   FormBuilder,
@@ -12,7 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 /*import { CoktailsInterface, CoktailsInterfaceForm } from 'app/shared/interfaces';
 import { CoktailsService } from 'app/shared/services/coktails-service';*/
 import {ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
@@ -29,9 +28,7 @@ import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { ExperienceInterfaceForm } from '../../../../../../shared/interfaces/Experience.interface';
 import { ParcoursService } from '../../../../../../shared/services/parcours.service';
-import { concat } from 'rxjs';
 
 const moment = _rollupMoment || _moment;
 
@@ -203,7 +200,6 @@ export class AdminExperiencesForm {
   private parcoursService = inject(ParcoursService);
   private router = inject(Router);
   experiences = computed(() => this.parcoursService.experienceResource.value());
-  //isLoading = signal(false);
   ddeb = signal(false)
   dfin = signal(false)
 
@@ -296,15 +292,13 @@ export class AdminExperiencesForm {
       
       yearDeb = this.experienceForm.getRawValue().montYearDeb?.year().toString() as string
       const montYearDeb = (infmoisdeb ? "0" + moisDeb.toString() : moisDeb.toString()) + yearDeb
-      //console.log(montYearDeb)
       let moisFin=<number>(0); 
       let yearEnd=<string>('');
       moisFin =  Number(this.experienceForm.getRawValue().montYearFin?.month()) + 1
       const infmoisFin =  Number(this.experienceForm.getRawValue().montYearFin?.month()) < 9 ? true : false
       yearEnd = this.experienceForm.getRawValue().montYearFin?.year().toString() as string
       const montYearFin = (infmoisFin ? "0" + moisFin.toString() : moisFin.toString()) + yearEnd
-      //console.log(montYearFin)
-      
+            
       
       try {
           await this.parcoursService.addExperience({
@@ -328,9 +322,6 @@ export class AdminExperiencesForm {
   }
   }
 
-  effect() {
-    console.log(this.experienceForm.invalid)
-  }
   ngOnInit(): void {
     
    this.datedeb.setValue(this.datedeb.defaultValue)

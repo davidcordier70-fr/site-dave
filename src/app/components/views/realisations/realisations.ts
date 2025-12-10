@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { afterNextRender, Component, computed, inject, signal } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -7,6 +7,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import { RealService } from '../../../shared/services/real.service';
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-realisations',
@@ -16,8 +18,18 @@ import { RealService } from '../../../shared/services/real.service';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatTabsModule],
+    MatTabsModule,
+    MatProgressSpinnerModule],
   template: `
+    @if (loading()) {
+      <div class='d-flex flex-fill justify-content-center align-items-center'>
+        <mat-progress-spinner
+                
+                [mode]="mode"
+            >
+        </mat-progress-spinner>
+      </div>
+    } @else {
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
     <mat-tab>
     <ng-template mat-tab-label>
@@ -180,6 +192,7 @@ import { RealService } from '../../../shared/services/real.service';
                 }
     </mat-tab>
   </mat-tab-group>
+              }
   `,
   styles: `
     :host {
@@ -198,6 +211,16 @@ export class Realisations {
   realService = inject(RealService)
   realPerso = computed(() => this.realService.realResource.value()?.filter(({type}) => type === 'perso') || undefined)
   realPro = computed(() => this.realService.realResource.value()?.filter(({type}) => type === 'pro') || undefined)
+  loading = signal(true)
+  mode: ProgressSpinnerMode = 'indeterminate';
+
+  
+  constructor() {
+    afterNextRender(() => {
+      this.loading.set(false);
+    })
+  }
+
 }
 
 

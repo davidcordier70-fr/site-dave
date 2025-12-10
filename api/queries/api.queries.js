@@ -19,9 +19,6 @@ const sparkPostTransporter = nodemailer.createTransport(
   })
 );
 
-
-
-
 exports.getCategorys = () => {
     return Categorys.find({}).exec()
 }
@@ -29,7 +26,6 @@ exports.getCategorys = () => {
 exports.getRealisations = () => {
     return Realisations.find({}).exec()
 }
-
 
 exports.createCategory = (category) => {
     console.log(category)
@@ -39,6 +35,10 @@ exports.createCategory = (category) => {
 
 exports.deleteCategory = (categoryId) => {
     return Categorys.find().findByIdAndDelete(categoryId)
+}
+
+exports.deleteCptUser = (userId) => {
+    return Users.find().findByIdAndDelete(userId)
 }
 
 exports.getCompetences = () => {

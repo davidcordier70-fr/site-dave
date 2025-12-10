@@ -86,18 +86,7 @@ export class Home {
   readonly authService = inject(AuthService);
   isLoggedin = this.authService.isLoggedin;
   currentUser=computed(() => this.authService.currentUserResource.value());
-  /*souscategorys = signal(<SousCategory[]>(sousCatagorysData))
-
-  productService=inject(ProductService)
-
-  tweetList=computed(() => this.productService.productResource.value() || [])*/
-  constructor() {
-    //seeddata()
-    //removedata()
-    console.log('coucou2');
-  }
-
-  
+   
 }
 
 function compareCategorys(a:CategoryInterfaceGraph, b:CategoryInterfaceGraph): number {

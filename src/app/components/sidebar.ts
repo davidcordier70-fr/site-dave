@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, computed, OnInit, signal, viewChild, ViewChild} from '@angular/core';
-import {ProgressBarMode, MatProgressBarModule, MatProgressBar} from '@angular/material/progress-bar';
+import {Component, OnInit} from '@angular/core';
+import {ProgressBarMode, MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSliderModule} from '@angular/material/slider';
 import {FormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';

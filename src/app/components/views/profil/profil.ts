@@ -8,9 +8,11 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop'
 import { MatDialog } from '@angular/material/dialog';
 import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
+
 @Component({
   selector: 'app-profil',
-  imports: [ReactiveFormsModule, MatProgressSpinnerModule],
+  imports: [ReactiveFormsModule, MatProgressSpinnerModule, MatIconModule],
   template: `
     @if (show()) {
         <div animate.enter="fade-in" animate.leave="fade-out" class="message-success">
@@ -29,9 +31,9 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
       
       <h2 class="mb-10">Votre profil</h2>
       
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column mt-20">
         <div class="d-flex mb-20 flex-column">
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column mb-20">
             <label for="nom" class='mb-10'>Votre Nom</label>
             <input formControlName="nom" type="text" id="nom" autocomplete="off" class='mb-10'/>
               @if (nomControl.errors?.['required'] && (nomControl.touched || formSubmitted())) {
@@ -83,23 +85,45 @@ import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/p
     <form [formGroup]="secuForm" (submit)="submitSecu()" class="card pt-20" autocomplete="off">
       <h2 class="mb-10">Sécurité</h2>
            
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column mt-20">
         <div class="d-flex mb-20 flex-column">
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column mb-20">
             <label for="passwd" class='mb-10'>Nouveau mot de passe *</label>
-            <input formControlName="passwd" type="password" id="passwd" autocomplete="off" class='mb-10'/>
+            <div class="d-flex mb-10">
+              <input formControlName="passwd" [type]="hide() ? 'password' : 'text'" id="passwd" autocomplete="off" class='flex-fill'/>
+              <button type='button'
+                  matIconButton
+                  matSuffix
+                  (click)="clickEvent($event)"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide()"
+            >
+                <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </div>
               @if (passwdControl.errors?.['required'] && (passwdControl.touched || formSecuSubmitted())) {
                 <span class="error">Mot de passe obligatoire</span>
              } 
           </div>
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column mb-20">
             <label for="confpasswd" class='mb-10'>Confirmation *</label>
-            <input formControlName="confpasswd" type="password" id="confpasswd" autocomplete="off" class='mb-10'/>
+            <div class="d-flex mb-10">
+              <input formControlName="confpasswd" [type]="hide1() ? 'password' : 'text'" id="confpasswd" autocomplete="off" class=' flex-fill'/>
+              <button type='button'
+                  matIconButton
+                  matSuffix
+                  (click)="clickEvent1($event)"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide1()"
+              >
+                <mat-icon>{{hide1() ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+          </div>
             @if (confpasswdControl.errors?.['required'] && (confpasswdControl.touched || formSecuSubmitted())) {
               <span class="error">Mot de passe obligatoire</span>
-            } <!--@else if (passwdControl.value != confpasswdControl.value) {
+            } @else if (passwdControl.value != confpasswdControl.value) {
               <span class="error">Les deux mots de passe doivent être identiques</span>
-            } !-->
+            } 
 
             
           </div>
@@ -144,7 +168,17 @@ export class Profil {
   load = signal(false);
   mode: ProgressSpinnerMode = 'indeterminate';
   
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
+  hide1 = signal(true);
+  clickEvent1(event: MouseEvent) {
+    this.hide1.set(!this.hide1());
+    event.stopPropagation();
+  }
   
 
   readonly dialog = inject(MatDialog);
@@ -193,7 +227,6 @@ export class Profil {
 
   initCocktailFormEffect = effect(() => {
     if (this.profilId) {
-      console.log(this.currentUser.nom)
       this.nomControl.setValue(this.currentUser.nom)
       this.prenomControl.setValue(this.currentUser.prenom)
       this.nomentControl.setValue(this.currentUser.noment)
@@ -206,7 +239,7 @@ export class Profil {
 
    
   async submitSecu() {
-      console.log("securite");
+      
       this.formSecuSubmitted.set(true);
       if (this.profilForm.valid) {
         const password = this.secuForm.getRawValue().passwd;
@@ -229,8 +262,7 @@ export class Profil {
           
           this.authService.deconnexion.set(1)
           this.authService.logout()
-          //await this.deconnexion()
-          
+                   
                    
           
         } catch (e: any) {
@@ -243,7 +275,6 @@ export class Profil {
     } 
 
     async submit() {
-      console.log("submit");
       this.formSubmitted.set(true);
       if (this.profilForm.valid) {
         const profilForm = this.profilForm.getRawValue() as ProfilForm;

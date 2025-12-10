@@ -78,16 +78,6 @@ export class CategoryList {
     computed(() => this.nbCat.set(1))
   }
 
-  constructor() {
-    console.log(this.competencesFilter)
-  }
-
-  initCocktailFormEffect = effect(() => {
-    
-    console.log('catparent : '+this.initialValueDisplays())
-    //console.log(this.activatedRoute.params)
-  })
-
   compareCompetences(a:CompetenceInterface, b:CompetenceInterface): number {
     const nameA = a.name; // ignorer les majuscules/minuscules
     const nameB = b.name; // ignorer les majuscules/minuscules

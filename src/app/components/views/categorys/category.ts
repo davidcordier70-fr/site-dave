@@ -23,7 +23,6 @@ import { Location } from '@angular/common';
   styles: `
     :host {
       background:white;
-      //background:var(--mat-sys-tertiary);
       display:flex;
       flex:1;
       flex-direction:column;
@@ -35,7 +34,6 @@ import { Location } from '@angular/common';
 })
 export class Category {
 
-  //donnees = competencesData;
   private location = inject(Location);
   private competenceService = inject(CompetenceService);
   private activatedRoute = inject(ActivatedRoute);

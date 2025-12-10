@@ -18,23 +18,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
 app.use(cookieParser());
 
-console.log(environnement)
-
-    app.use(errorHandler())
-/*} else {
-    app.use((err, req, res, next) => {
-        const code = err.code || 500
-        res.status(code).json({
-            code:err.code,
-            message: code === 500 ? null : err.message
-        })
-        
-    })
-}*/
+app.use(errorHandler())
 
 app.use(routing)
-
-
-
 
 app.listen(port)

@@ -1,6 +1,6 @@
-import { Route, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 import { NotFound } from "./components/views/not-found";
-import { Home } from "./components/views/home/home"
+import { Home } from "./components/views/Home/home"
 import { authGuard } from "./shared/guards/auth-guard";
 
 

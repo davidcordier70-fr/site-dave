@@ -44,22 +44,6 @@ export class CategoryFilter {
   categoryService=inject(CategoryService)
   categorysFilter = computed(() => this.categoryService.categoryResource.value()?.sort(compareCategorys) ) 
   disableSelect = new FormControl(false);
-  
-  //categorys = signal<CategoryInterface[]>(categoryData)
-  //selectedCategory = computed(() => this.category() as string);
-  
-
-  initCocktailFormEffect = effect(() => {
-    console.log("selct : "+this.selectedCategory())
-    //console.log(this.activatedRoute.params)
-  })
-
-  
-
-  
-
-  
-  
 }
 
 function compareCategorys(a:CategoryInterface, b:CategoryInterface): number {

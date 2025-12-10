@@ -2,7 +2,7 @@ import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners, provi
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+
 
 
 

@@ -1,7 +1,7 @@
 
 
-import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, resource, signal, viewChild } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterModule, RouterOutlet } from "@angular/router";
+import { ChangeDetectionStrategy, Component, computed, inject, signal, viewChild } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from "@angular/router";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
@@ -18,8 +18,9 @@ import {
   MatDialogClose,
   MatDialogContent,
 } from '@angular/material/dialog';
-import { routes } from './app.routes';
-import { ProgressBarQueryExample } from "./components/sidebar";
+import { User } from './shared/interfaces';
+import { UserService } from './shared/services/user.service';
+
 
 
 interface FoodNode {
@@ -58,48 +59,45 @@ interface FoodNode {
           <span>Me contacter</span>
         </a>
       }
-      <a class='d-flex flex-row menu_general' routerLink="">
+      <!-- <a class='d-flex flex-row menu_general' routerLink="">
         <i class="fa-solid fa-pen-ruler"></i>
         <span>Conditions générales</span>
-      </a>
-
-      
+      </a> !--->
     </mat-sidenav>
     
     <mat-sidenav-content class='mat-sidenav-content'>
-      
       <div class='navbar'>
-        <a class='d-flex flex-row menu none' routerLink="">
-        <i class="fa-solid fa-house"></i>
-      </a>
-      <div class='d-flex'>
-      <button matIconButton [matMenuTriggerFor]="menu" aria-label="Menu général" class='btnmobile'>
-        <i class="fa-solid fa-bars"></i>
-      </button>
-      </div> 
-      <mat-menu #menu="matMenu" class="customize2">
-        <button mat-menu-item routerLink="">
-          <i class="fa-solid fa-house"></i>
-          <span>Accueil</span>
-        </button>
-        <button mat-menu-item (click)="reloadComponent('categorys')">
-          <i class="fa-solid fa-book-open"></i>
-          <span>Mes compétences</span>
-        </button>
-        <button mat-menu-item routerLink="parcours">
-          <i class="fa-solid fa-person-running"></i>
-          <span>Mon parcours professionnel</span>
-        </button>
-        <button mat-menu-item routerLink="realisations">
-          <i class="fa-solid fa-lightbulb"></i>
-          <span>Mes réalisations</span>
-        </button>
-        @if (isLoggedin()) {
-          <button mat-menu-item routerLink="contact">
-            <i class="fa-solid fa-address-book"></i>
-            <span>Me contacter</span>
+        <div class='d-flex'>
+          <button matIconButton [matMenuTriggerFor]="menu" aria-label="Menu général" class='btnmobile'>
+            <i class="fa-solid fa-bars"></i>
           </button>
-        } 
+        </div> 
+        <a class='d-flex flex-row menu none' routerLink="">
+          <i class="fa-solid fa-house"></i>
+        </a>
+        <mat-menu #menu="matMenu" class="customize2">
+          <button mat-menu-item routerLink="">
+            <i class="fa-solid fa-house"></i>
+            <span>Accueil</span>
+          </button>
+          <button mat-menu-item (click)="reloadComponent('categorys')">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Mes compétences</span>
+          </button>
+          <button mat-menu-item routerLink="parcours">
+            <i class="fa-solid fa-person-running"></i>
+            <span>Mon parcours professionnel</span>
+          </button>
+          <button mat-menu-item routerLink="realisations">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span>Mes réalisations</span>
+          </button>
+          @if (isLoggedin()) {
+            <button mat-menu-item routerLink="contact">
+              <i class="fa-solid fa-address-book"></i>
+              <span>Me contacter</span>
+            </button>
+          } 
       </mat-menu>
       
       <button matButton (click)="sidenav.toggle()" class='btnlg'><i class="fa-solid fa-bars" ></i></button>
@@ -107,64 +105,61 @@ interface FoodNode {
       <div class='d-flex align-items-center imgidentite'>
        <img src="./images/photo.jpg" alt="Photo d'identité">
       </div> 
-      
-      
-      
+           
       <ul class='d-flex flex-row flex-fill justify-content-end'>
         @if (isLoggedin()) {
-      
-      
-
-      <li   class='pr-10'>
-        <button matButton [matMenuTriggerFor]="menu" #menuTrigger><i class="fa-solid fa-gear"></i></button>
-        <mat-menu #menu="matMenu" class="customize">
-          <div class='d-flex flex-column align-items-center p-20'>
-            <span>{{ currentUser().prenom }} {{ currentUser().nom }}</span>
-            <span>{{ currentUser().email }}</span>
-        </div>
-          <button mat-menu-item [routerLink]="['profil', currentUser()._id]">
-            <i class="fa-solid fa-user pr-10"></i>
-            <span>Votre profil</span>
-          </button>
-          <button mat-menu-item (click)="logout()">
-            <i class="fa-solid fa-arrow-right-from-bracket pr-10"></i>
-             <span >Deconnexion</span>
-          </button>
-        </mat-menu>
-        
+          <li>
+            <button matButton [matMenuTriggerFor]="menu" #menuTrigger><i class="fa-solid fa-gear"></i></button>
+            <mat-menu #menu="matMenu" class="customize">
+              <div class='d-flex flex-column align-items-center p-10'>
+                <span>{{ currentUser().prenom }} {{ currentUser().nom }}</span>
+                <span>{{ currentUser().email }}</span>
+              </div>
+              <span class='border mb-20'></span>
+              <button mat-menu-item [routerLink]="['profil', currentUser()._id]" class='itemprofil'>
+                  <i class="fa-solid fa-user pr-10"></i>
+                  <span>Votre profil</span>
+              </button>
+              <button mat-menu-item (click)="logout()" class='itemprofil'>
+                <i class="fa-solid fa-arrow-right-from-bracket pr-10"></i>
+              <span >Deconnexion</span>
+              </button>
+              <span class='border2'></span>
+              <button (click)="deleteUser(currentUser())" class='supcompte'>
+                <i class="fa-solid fa-trash pr-10"></i>
+                <span>Supprimer mon compte</span>
+              </button>
+            </mat-menu>
+          </li>
       } @else { 
-      @if (currentUser()) {
-        @if (currentUser().email === 'nathalie.cordier0585@orange.fr') {
-      <li   class='pr-10'>
-        <button class='btn btn-primary' routerLink="admin">Admin</button>
-      </li>
+        @if (currentUser()) {
+          @if (currentUser().email === 'nathalie.cordier0585@orange.fr') {
+          <li class='pr-10'>
+            <button class='btn btn-primary' routerLink="admin">Admin</button>
+          </li>
         }
       }
-      <li class='d-flex flex-column justify-content-center'>
-        
-        <button class='btn btn-primary btncoweb pr-10' routerLink="signin">
-          <i class="fa-regular fa-user pr-10"></i>
-          Connexion
-        </button>
-        <button class='btn1  btncomobile' routerLink="signin">
-          <span>Connexion > </span>
-          <i class="fa-regular fa-user"></i>
-        </button>
-      </li>
+          <li class='d-flex flex-column justify-content-center'>
+            <button class='btn btn-primary btncoweb pr-10' routerLink="signin">
+              <i class="fa-regular fa-user pr-10"></i>
+                Connexion
+            </button>
+            <button class='btn1  btncomobile' routerLink="signin">
+              <span>Connexion > </span>
+              <i class="fa-regular fa-user"></i>
+            </button>
+          </li>
       
-      <li class='d-flex flex-column justify-content-center'>
-        
-        <button class='btn btn-primary btninweb' routerLink="signup">
-          <i class="fa-solid fa-user-plus pr-10"></i>
-          Inscription
-        </button>
-        
+          <li class='d-flex flex-column justify-content-center'>
+            <button class='btn btn-primary btninweb' routerLink="signup">
+              <i class="fa-solid fa-user-plus pr-10"></i>
+                Inscription
+            </button>
             <button class='btn1 btninmobile' routerLink="signup">
               <span>Inscription > </span>
               <i class="fa-solid fa-user-plus"></i>
             </button>
-          
-      </li>
+          </li>
       }
         
     </ul>
@@ -173,25 +168,13 @@ interface FoodNode {
     </mat-sidenav-content>
   </mat-sidenav-container>
   `,
-  styles: `
-
-  
-
-
-
-   
-  `,
   styleUrl: 'app.scss'
-
-
-
-   
-  
 })
 export class App {
 
    
   readonly authService = inject(AuthService);
+  readonly userService = inject(UserService);
   isLoggedin = this.authService.isLoggedin;
   currentUser=computed(() => this.authService.currentUserResource.value());
   router = inject(Router)
@@ -201,11 +184,13 @@ export class App {
     this.authService.logout();
   }
 
+  public deleteUser(currentUser:User) {
+    this.userService.deleteUser(currentUser)
+  }
+
   reloadComponent(uri: string) {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
     this.router.navigate([uri])});
-    //this.router.navigateByUrl('/categorys', { onSameUrlNavigation: 'reload'})
-    
   }
   readonly menuTrigger = viewChild.required(MatMenuTrigger);
   
@@ -227,53 +212,8 @@ export class App {
   events: string[] = [];
     opened = signal(<boolean>(true));
   
-    dataSource = EXAMPLE_DATA;
-  
-    childrenAccessor = (node: FoodNode) => node.children ?? [];
-  
-    hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
-
-
-  
-
-  constructor() {
-    //seeddata()+
-    //removedata()
-    
   }
 
-  
-
-}
-
-@Component({
-  selector: 'dialog-from-menu-dialog',
-  template: `<mat-dialog-content>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button matButton mat-dialog-close>Okay</button>
-</mat-dialog-actions>`,
-  imports: [MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
 export class DialogFromMenuExampleDialog {}
 
-const EXAMPLE_DATA: FoodNode[] = [
-  {
-    name: 'Fruit',
-    children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
-      },
-      {
-        name: 'Orange',
-        children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
-      },
-    ],
-  },
-];
+

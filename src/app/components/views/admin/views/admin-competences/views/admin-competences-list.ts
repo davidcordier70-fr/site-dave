@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 
-import { RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import { CompetenceService } from '../../../../../../shared/services/competence.service';
 
 @Component({

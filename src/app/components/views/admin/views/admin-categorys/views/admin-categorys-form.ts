@@ -1,25 +1,18 @@
 import {
   Component,
   computed,
-  effect,
   inject,
-  input,
   signal,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import {
-  FormArray,
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CompetenceService } from '../../../../../../shared/services/competence.service';
+import { Router } from '@angular/router';
 import { CategoryService } from '../../../../../../shared/services/category.service';
 import { CategoryInterfaceForm } from '../../../../../../shared/interfaces';
-/*import { CoktailsInterface, CoktailsInterfaceForm } from 'app/shared/interfaces';
-import { CoktailsService } from 'app/shared/services/coktails-service';*/
 
 @Component({
   selector: 'app-admin-categorys-form',

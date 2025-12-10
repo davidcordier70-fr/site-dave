@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 
-import { RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import { CategoryService } from '../../../../../../shared/services/category.service';
 
 @Component({

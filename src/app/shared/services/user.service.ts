@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, resource } from '@angular/core';
 import { CategoryInterface, CategoryInterfaceForm, CompetenceInterface, CompetenceInterfaceForm, ProfilForm, User, UserForm } from '../interfaces';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 const API_USERS = '/api/users/';
 
@@ -10,6 +11,8 @@ const API_USERS = '/api/users/';
 export class UserService {
 
   authService = inject(AuthService)
+  readonly router = inject(Router);
+  
 
   async createUser(user: UserForm): Promise<User> {
     const response = await fetch(API_USERS, {
@@ -42,6 +45,23 @@ export class UserService {
     } else {
       throw new Error(body);
     }
+  }
+
+  async deleteUser(user: User) {
+    const { _id } = user;
+    
+    const response = await fetch(`${API_USERS}${_id}/`, {
+      method: 'DELETE',
+    });
+    if (response.ok) {
+      this.authService.currentUserResource.reload();
+      console.log('OK')
+      this.router.navigateByUrl('/signin');
+    } else {
+      throw new Error('Erreur lors de la suppression du compte');
+    }
+    
+    
   }
 
   
