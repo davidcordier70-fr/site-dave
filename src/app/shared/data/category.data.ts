@@ -21,7 +21,7 @@ export const categoryData: CategoryInterfaceGraph[] = [
   },
     {
     category_name:'base_donnees',
-    libelle:'Base de données',
+    libelle:'Bases de données',
     background:'linear-gradient(45deg, purple 0%, #8e44ad 100%)',
     codeClass:'fa-solid fa-database'
   },
