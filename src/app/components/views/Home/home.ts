@@ -25,7 +25,9 @@ import { AuthService } from '../../../shared/services/auth.service';
         <span class='p1 mb-20'>Disposant d'une expérience de plus de 27 ans dans le développement informatique, je suis à l'écoute d'une nouvelle opportunité de carrière</span>
         <div class='d-flex btnpres'>
           <button class='btn btn-primary mb-20 btnpresparc' routerLink="parcours">Accéder à mon parcours professionnel</button>
-          <button class='btn btn-primary mb-20' routerLink="realisations">Mes réalisations</button>
+          <button class='btn btn-primary mb-20 mr-20' routerLink="realisations">Mes réalisations</button>
+          <a class='btn btn-primary mb-20 mr-20' href='https://dyma.fr/certification/68519972b392b3d687324ec0/673dce48b26354b76df4608a' target='_blank'>Certification Angular Dyma.fr</a>
+          <a class='btn btn-primary mb-20' href='https://dyma.fr/certification/68519972b392b3d687324ec0/61955697d5fe7e09d4aba36a' target='_blank'>Certification Python Dyma.fr</a>
         </div>
         <mat-divider class='mb-20'></mat-divider>
         @if (isLoggedin()) {
