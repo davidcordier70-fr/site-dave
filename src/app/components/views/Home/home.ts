@@ -27,7 +27,8 @@ import { AuthService } from '../../../shared/services/auth.service';
           <button class='btn btn-primary mb-20 btnpresparc' routerLink="parcours">Accéder à mon parcours professionnel</button>
           <button class='btn btn-primary mb-20 mr-20' routerLink="realisations">Mes réalisations</button>
           <a class='btn btn-primary mb-20 mr-20' href='https://dyma.fr/certification/68519972b392b3d687324ec0/673dce48b26354b76df4608a' target='_blank'>Certification Angular Dyma.fr</a>
-          <a class='btn btn-primary mb-20' href='https://dyma.fr/certification/68519972b392b3d687324ec0/61955697d5fe7e09d4aba36a' target='_blank'>Certification Python Dyma.fr</a>
+          <a class='btn btn-primary mb-20 mr-20' href='https://dyma.fr/certification/68519972b392b3d687324ec0/61955697d5fe7e09d4aba36a' target='_blank'>Certification Python Dyma.fr</a>
+          <a class='btn btn-primary mb-20' href='https://dyma.fr/certification/68519972b392b3d687324ec0/64799f7159ebb4f1e99bfb8b' target='_blank'>Certification Spring Boot Dyma.fr</a>
         </div>
         <mat-divider class='mb-20'></mat-divider>
         @if (isLoggedin()) {
